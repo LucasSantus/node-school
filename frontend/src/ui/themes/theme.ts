@@ -3,9 +3,9 @@ import { createTheme } from "@material-ui/core";
 const theme = createTheme({
     palette: {
         primary: {
-            light: "#9661ff",
-            main: "#6B2AEE",
-            dark: "#581ECD",
+            light: "#9466ff",
+            main: "#8257e5",
+            dark: "#28203e",
         },
         secondary: {
             light: "#2bfff2",
@@ -35,6 +35,12 @@ const theme = createTheme({
     },
     typography: {
         fontFamily: "Poppins",
+    },
+    shape: {
+        borderRadius: 1,
+    },
+    spacing(size): string {
+        return size * 12 + 'px';
     },
 });
 

@@ -14,9 +14,9 @@ interface Item {
 
 export default function Dashboard(){
     const [items] = useState<Item[]>([
-        // { "name": "Irineu" }, { "name": "Jubileu" }, 
-        // { "name": "Jucelina" }, { "name": "Pipoca" }, 
-        // { "name": "Jubila" }, { "name": "Irinéia" }
+        { "name": "Irineu" }, { "name": "Jubileu" }, 
+        { "name": "Jucelina" }, { "name": "Pipoca" }, 
+        { "name": "Jubila" }, { "name": "Irinéia" }
     ]);
 
     return (
