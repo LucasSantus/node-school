@@ -1,28 +1,40 @@
 import { getRepository } from "typeorm";
 import { Class } from "../../entities/Class";
+import { Student } from "../../entities/Student";
 import { Teacher } from "../../entities/Teachers";
 
 type ClassRequest = {
     name: string;
     description: string;
-    category_id: string;
+    teacher_id: string;
+    students: string[];
 }
 
 export class CreateClassService{
-    async execute({name, description, category_id}: ClassRequest): Promise<Class | Error>{
+    async execute({name, description, teacher_id, students}: ClassRequest): Promise<Class | Error>{
         const repo = getRepository(Class);
         const repoTeacher = getRepository(Teacher);
+        const repoStudent = getRepository(Student);
 
-        if(!await repoTeacher.findOne(category_id)){
+        const classe = await repo.findOne(name);
+
+        if(!await repoTeacher.findOne(teacher_id)){
             return new Error("Teacher does not exists");
         }
 
-        const video = repo.create({
-            name,
-            description
-        });
+        const teacherExists = await repoTeacher.findOne(teacher_id);
 
-        await repo.save(video);
-        return video;
+        const studentsExists = await repoStudent.findByIds(
+            students
+        );
+
+        classe.name = name
+        classe.description = description
+        classe.teacher = teacherExists
+        classe.students = studentsExists;
+
+        await repo.save(classe);
+
+        return classe;
     }
 }

@@ -1,24 +1,23 @@
-import { Entity, Column, CreateDateColumn, PrimaryColumn, JoinColumn, OneToOne, ManyToMany, JoinTable, OneToMany } from "typeorm";
-import { v4 as uuid } from "uuid";
+import { Entity, Column, JoinColumn, ManyToOne, OneToMany } from "typeorm";
+import { BaseEntity } from "./BaseEntity";
+import { Student } from "./Student";
 import { Teacher } from "./Teachers";
 
 @Entity("class")
-export class Class{
-    @PrimaryColumn()
-    id: string;
-
+export class Class extends BaseEntity{
     @Column()
     name: string;
 
     @Column()
     description: string;
 
-    @CreateDateColumn()
-    create_at: Date;
+    @Column()
+    teacher_id: string;
 
-    constructor(){
-        if(!this.id){
-            this.id = uuid()
-        }
-    }
+    @ManyToOne(type => Teacher, teacher => teacher.classes)
+    @JoinColumn({ name: 'teacher_id'})
+    teacher: Teacher;
+
+    @OneToMany(() => Student, student => student.classe)
+    students: Student[];
 }

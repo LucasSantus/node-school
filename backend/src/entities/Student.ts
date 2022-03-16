@@ -1,20 +1,12 @@
-import { Entity, Column, CreateDateColumn, PrimaryColumn } from "typeorm";
-import { v4 as uuid } from "uuid";
+import { Entity, Column, ManyToOne } from "typeorm";
+import { BaseEntity } from "./BaseEntity";
+import { Class } from "./Class";
 
 @Entity("students")
-export class Student{
-    @PrimaryColumn()
-    id: string;
-
+export class Student extends BaseEntity{
     @Column()
     name: string;
 
-    @CreateDateColumn()
-    create_at: Date;
-
-    constructor(){
-        if(!this.id){
-            this.id = uuid()
-        }
-    }
+    @ManyToOne(() => Class, classe => classe.students)
+    classe: Class;
 }

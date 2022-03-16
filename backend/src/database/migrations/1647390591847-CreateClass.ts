@@ -20,14 +20,14 @@ export class CreateClass1647390591847 implements MigrationInterface {
                         name: "description",
                         type: "varchar"
                     },
-                    // {
-                    //     name: "student_id",
-                    //     type: "uuid",
-                    // },
-                    // {
-                    //     name: "teacher_id",
-                    //     type: "uuid",
-                    // },
+                    {
+                        name: "students_id",
+                        type: "uuid",
+                    },
+                    {
+                        name: "teacher_id",
+                        type: "uuid",
+                    },
                     {
                         name: "create_at",
                         type: "timestamp",
@@ -37,7 +37,7 @@ export class CreateClass1647390591847 implements MigrationInterface {
                 foreignKeys: [
                     {
                         name: "fk_class_student",
-                        columnNames: ['student_id'],
+                        columnNames: ['students_id'],
                         referencedTableName: 'students',
                         referencedColumnNames: ['id']
                     },
@@ -53,6 +53,6 @@ export class CreateClass1647390591847 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("videos");
+        await queryRunner.dropTable("class");
     }
 }

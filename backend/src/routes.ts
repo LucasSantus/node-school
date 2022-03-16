@@ -12,6 +12,10 @@ import { DeleteTeacherController } from "./controllers/Teachers/DeleteTeacherCon
 import { GetAllTeachersController } from "./controllers/Teachers/GetAllTeachersController";
 import { UpdateTeacherController } from "./controllers/Teachers/UpdateTeacherController";
 
+// Import Controller Classes
+import { CreateClassController } from "./controllers/Class/CreateClassController";
+import { GetAllClassesController } from "./controllers/Class/GetAllClassesController";
+
 const routes = Router();
 
 routes.post("/students", new CreateStudentController().handle);
@@ -24,7 +28,7 @@ routes.get("/teachers", new GetAllTeachersController().handle);
 routes.put("/teachers/:id", new UpdateTeacherController().handle);
 routes.delete("/teachers/:id", new DeleteTeacherController().handle)
 
-// routes.post("/videos", new CreateVideoController().handle);
-// routes.get("/videos", new GetAllVideosController().handle);
+routes.post("/classes", new CreateClassController().handle);
+routes.get("/classes", new GetAllClassesController().handle);
 
 export { routes };
