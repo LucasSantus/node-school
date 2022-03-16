@@ -13,9 +13,6 @@ export class Class{
     @Column()
     description: string;
 
-    @OneToMany(() => Teacher, (teacher) => teacher.classes)
-    public teachers: Teacher[];
-
     @CreateDateColumn()
     create_at: Date;
 

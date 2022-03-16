@@ -20,14 +20,14 @@ export class CreateClass1647390591847 implements MigrationInterface {
                         name: "description",
                         type: "varchar"
                     },
-                    {
-                        name: "student_id",
-                        type: "uuid",
-                    },
-                    {
-                        name: "teacher_id",
-                        type: "uuid",
-                    },
+                    // {
+                    //     name: "student_id",
+                    //     type: "uuid",
+                    // },
+                    // {
+                    //     name: "teacher_id",
+                    //     type: "uuid",
+                    // },
                     {
                         name: "create_at",
                         type: "timestamp",

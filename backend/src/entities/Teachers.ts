@@ -10,9 +10,6 @@ export class Teacher{
     @Column()
     name: string;
 
-    @ManyToOne(() => Class, (classe) => classe.teachers)
-    public classes: Class;
-
     @CreateDateColumn()
     create_at: Date;
 
