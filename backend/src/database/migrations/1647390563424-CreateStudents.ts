@@ -21,7 +21,7 @@ export class CreateStudents1647390563424 implements MigrationInterface {
                         type: "timestamp",
                         default: "now()"
                     },
-                ]
+                ],
             })
         )
     }

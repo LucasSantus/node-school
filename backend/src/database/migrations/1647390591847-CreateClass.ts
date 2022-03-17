@@ -1,4 +1,4 @@
-import {MigrationInterface, QueryRunner, Table} from "typeorm";
+import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
 export class CreateClass1647390591847 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
@@ -20,13 +20,13 @@ export class CreateClass1647390591847 implements MigrationInterface {
                         name: "description",
                         type: "varchar"
                     },
-                    {
-                        name: "students_id",
-                        type: "uuid",
+                    { 
+                        name: "teacher_id", 
+                        type: "uuid" 
                     },
-                    {
-                        name: "teacher_id",
-                        type: "uuid",
+                    { 
+                        name: "student_id", 
+                        type: "uuid" 
                     },
                     {
                         name: "create_at",
@@ -36,18 +36,22 @@ export class CreateClass1647390591847 implements MigrationInterface {
                 ],
                 foreignKeys: [
                     {
-                        name: "fk_class_student",
-                        columnNames: ['students_id'],
-                        referencedTableName: 'students',
-                        referencedColumnNames: ['id']
+                        columnNames: ["teacher_id"],
+                        referencedColumnNames: ["id"],
+                        referencedTableName: "teachers",
+                        name: "fk_teacher_class",
+                        onDelete: "RESTRICT",
+                        onUpdate: "CASCADE",
                     },
                     {
-                        name: "fk_class_teacher",
-                        columnNames: ['teacher_id'],
-                        referencedTableName: 'teachers',
-                        referencedColumnNames: ['id']
-                    }
-                ]
+                        columnNames: ["student_id"],
+                        referencedColumnNames: ["id"],
+                        referencedTableName: "students",
+                        name: "fk_student_class",
+                        onDelete: "RESTRICT",
+                        onUpdate: "CASCADE",
+                    },
+                ],
             })
         )
     }

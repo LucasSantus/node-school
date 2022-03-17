@@ -11,13 +11,11 @@ export class Class extends BaseEntity{
     @Column()
     description: string;
 
-    @Column()
-    teacher_id: string;
-
     @ManyToOne(type => Teacher, teacher => teacher.classes)
-    @JoinColumn({ name: 'teacher_id'})
-    teacher: Teacher;
+    @JoinColumn({ name: 'teacher_id' })
+    teacher!: Teacher;
 
     @OneToMany(() => Student, student => student.classe)
-    students: Student[];
+    @JoinColumn({ name: 'students_id' })
+    students!: Student[];
 }
