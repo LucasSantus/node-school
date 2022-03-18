@@ -1,4 +1,4 @@
-import { Entity, Column, ManyToOne, JoinTable } from "typeorm";
+import { Entity, Column, ManyToOne, JoinTable, JoinColumn } from "typeorm";
 import { BaseEntity } from "./BaseEntity";
 import { Class } from "./Class";
 
@@ -7,11 +7,10 @@ export class Student extends BaseEntity{
     @Column()
     name: string;
 
-    @ManyToOne(() => Class, classe => classe.students)
-    @JoinTable({
-        name: "class",
-        joinColumns: [{ name: "student_id" }],
-        inverseJoinColumns: [{ name: "id" }],
-    })
-    classe!: Class;
+    @Column({nullable: true})
+    classe_id: string;
+
+    @ManyToOne(type => Class, students => students.id, { eager: true , nullable: false})
+    @JoinColumn({name: "classe_id"})
+    classe: Class;
 }

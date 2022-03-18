@@ -1,4 +1,4 @@
-import {MigrationInterface, QueryRunner, Table} from "typeorm";
+import { MigrationInterface, QueryRunner, Table, TableColumn, TableForeignKey } from "typeorm";
 
 export class CreateStudents1647390563424 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
@@ -23,6 +23,27 @@ export class CreateStudents1647390563424 implements MigrationInterface {
                     },
                 ],
             })
+        ),
+
+        await queryRunner.addColumn(
+            "students",
+            new TableColumn({
+                name: "classe_id",
+                type: "varchar",
+                isUnique: true
+            }),
+        )
+
+        await queryRunner.createForeignKey(
+            "students",
+            new TableForeignKey({
+                name: "fk_students_class",
+                columnNames: ['classe_id'],
+                referencedTableName: 'class',
+                referencedColumnNames: ['id'],
+                onDelete: "RESTRICT",
+                onUpdate: "CASCADE",
+            }),
         )
     }
 

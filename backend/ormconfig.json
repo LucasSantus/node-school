@@ -5,7 +5,7 @@
   "host": "localhost",
   "username": "admin",
   "password": "admin",
-  "database": "school_db",
+  "database": "schoools_db",
   "entities": ["./src/entities/*.ts"],
   "migrations": ["./src/database/migrations/*.ts"],
   "cli": {

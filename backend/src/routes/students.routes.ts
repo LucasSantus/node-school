@@ -8,9 +8,9 @@ import { DeleteStudentController } from "../controllers/Students/DeleteStudentCo
 import { GetAllStudentsController } from "../controllers/Students/GetAllStudentsController";
 import { UpdateStudentController } from "../controllers/Students/UpdateStudentController";
 
-routesStudent.post("/students", new CreateStudentController().handle);
-routesStudent.get("/students", new GetAllStudentsController().handle);
-routesStudent.put("/students/:id", new UpdateStudentController().handle);
-routesStudent.delete("/students/:id", new DeleteStudentController().handle)
+routesStudent.post("/", new CreateStudentController().handle);
+routesStudent.get("/", new GetAllStudentsController().handle);
+routesStudent.put("/:id", new UpdateStudentController().handle);
+routesStudent.delete("/:id", new DeleteStudentController().handle)
 
 export { routesStudent };

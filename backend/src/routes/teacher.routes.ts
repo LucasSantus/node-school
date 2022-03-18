@@ -8,9 +8,9 @@ import { DeleteTeacherController } from "../controllers/Teachers/DeleteTeacherCo
 import { GetAllTeachersController } from "../controllers/Teachers/GetAllTeachersController";
 import { UpdateTeacherController } from "../controllers/Teachers/UpdateTeacherController";
 
-routesTeacher.post("/teachers", new CreateTeacherController().handle);
-routesTeacher.get("/teachers", new GetAllTeachersController().handle);
-routesTeacher.put("/teachers/:id", new UpdateTeacherController().handle);
-routesTeacher.delete("/teachers/:id", new DeleteTeacherController().handle)
+routesTeacher.post("/", new CreateTeacherController().handle);
+routesTeacher.get("/", new GetAllTeachersController().handle);
+routesTeacher.put("/:id", new UpdateTeacherController().handle);
+routesTeacher.delete("/:id", new DeleteTeacherController().handle)
 
 export { routesTeacher };

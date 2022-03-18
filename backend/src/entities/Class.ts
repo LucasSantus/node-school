@@ -13,9 +13,9 @@ export class Class extends BaseEntity{
 
     @ManyToOne(type => Teacher, teacher => teacher.classes)
     @JoinColumn({ name: 'teacher_id' })
-    teacher!: Teacher;
+    teacher: Teacher;
 
-    @OneToMany(() => Student, student => student.classe)
-    @JoinColumn({ name: 'students_id' })
-    students!: Student[];
+    @OneToMany(type => Student, classe => Class)
+    @JoinColumn({ name: 'student_id' })
+    students: Student[];
 }
