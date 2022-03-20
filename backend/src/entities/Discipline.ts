@@ -18,10 +18,10 @@ export class Discipline extends BaseEntity{
     @JoinColumn({ name: 'teacher_id' })
     teacher: Teacher;
 
-    @Column({nullable: true})
-    student_ids: string;
+    // @Column({nullable: true})
+    // student_id: string;
 
     @OneToMany(type => Student, discipline => Discipline, { nullable: true})
-    @JoinColumn({ name: 'student_ids' })
+    @JoinColumn({ name: 'student_id' })
     students: Student[];
 }

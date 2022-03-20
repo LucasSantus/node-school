@@ -7,11 +7,11 @@ type DisciplineRequest = {
     name: string;
     description: string;
     teacher_id: string;
-    student_ids: string[];
+    student_id: string[];
 }
 
 export class CreateDisciplineService{
-    async execute({name, description, teacher_id, student_ids}: DisciplineRequest): Promise<Discipline | Error>{
+    async execute({name, description, teacher_id, student_id}: DisciplineRequest): Promise<Discipline | Error>{
         const repo = getRepository(Discipline);
         const repoTeacher = getRepository(Teacher);
         const repoStudent = getRepository(Student);
@@ -32,7 +32,28 @@ export class CreateDisciplineService{
             discipline.teacher = await repoTeacher.findOne(teacher_id);
         }
 
-        if(student_ids) discipline.students = await repoStudent.findByIds(student_ids);
+        // const students: Array<Student> = [];
+        // for (let student of student_id) {
+            
+        //   const firstName = name.firstName();
+        //   const lastName = name.lastName();
+        //   const isActive = random.arrayElement([true, false]);
+        //   const email = internet.email();
+        //   const password = internet.password();
+        //   const birthDate = date.past();
+
+        //   const user: Partial<UserEntity> = new UserEntity(
+        //     firstName,
+        //     lastName,
+        //     isActive,
+        //     email,
+        //     birthDate,
+        //     password
+        //   );
+        //   users.push((await con.manager.save(user)) as UserEntity);
+        // }
+
+        if(student_id) discipline.students = await repoStudent.findByIds(student_id);
 
         await repo.save(discipline);
 
