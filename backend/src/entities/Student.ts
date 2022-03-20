@@ -10,7 +10,7 @@ export class Student extends BaseEntity{
     @Column({nullable: true})
     classe_id: string;
 
-    @ManyToOne(type => Class, students => students.id, { eager: true , nullable: false})
+    @ManyToOne(type => Class, students => students.id, { eager: true, nullable: true})
     @JoinColumn({name: "classe_id"})
     classe: Class;
 }

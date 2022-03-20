@@ -16,25 +16,25 @@ export class CreateClassService{
         const repoTeacher = getRepository(Teacher);
         const repoStudent = getRepository(Student);
 
-        const classe = await repo.findOne(name);
-
-        if(!await repoTeacher.findOne(teacher_id)){
-            return new Error("Teacher does not exists");
+        if(await repo.findOne({name})){
+            return new Error("Discipline already exists!");
         }
 
-        const teacherExists = await repoTeacher.findOne(teacher_id);
+        const classe = repo.create({
+            name,
+            description
+        });
 
-        const studentsExists = await repoStudent.findByIds(
-            students
-        );
+        if(teacher_id){
+            if(!await repoTeacher.findOne(teacher_id)){
+                return new Error("Teacher does not exists!");
+            }
+            classe.teacher = await repoTeacher.findOne(teacher_id);
+        }
 
-        classe.name = name
-        classe.description = description
-        classe.teacher = teacherExists
-        classe.students = studentsExists;
+        if(students) classe.students = await repoStudent.findByIds(students);
 
         await repo.save(classe);
-
         return classe;
     }
 }

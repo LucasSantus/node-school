@@ -6,20 +6,20 @@ export class CreateTeachers1647390578712 implements MigrationInterface {
             new Table({
                 name: 'teachers',
                 columns: [
-                    {
-                        name: "id",
-                        type: "uuid",
-                        isPrimary: true
+                    { 
+                        name: "id", 
+                        type: "uuid", 
+                        isPrimary: true 
                     },
-                    {
-                        name: "name",
-                        type: "varchar",
-                        isUnique: true
+                    { 
+                        name: "name", 
+                        type: "varchar", 
+                        isUnique: true 
                     },
-                    {
-                        name: "create_at",
-                        type: "timestamp",
-                        default: "now()"
+                    { 
+                        name: "create_at", 
+                        type: "timestamp", 
+                        default: "now()" 
                     },
                 ]
             })

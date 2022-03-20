@@ -10,7 +10,7 @@ export class CreateStudentService{
         const repo = getRepository(Student);
 
         if(await repo.findOne({name})){
-            return new Error("Student already exists");
+            return new Error("Student already exists!");
         }
 
         const student = repo.create({

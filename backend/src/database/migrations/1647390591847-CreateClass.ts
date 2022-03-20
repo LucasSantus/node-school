@@ -6,50 +6,52 @@ export class CreateClass1647390591847 implements MigrationInterface {
             new Table({
                 name: 'class',
                 columns: [
-                    {
-                        name: "id",
-                        type: "uuid",
-                        isPrimary: true
+                    { 
+                        name: "id", 
+                        type: "uuid", 
+                        isPrimary: true 
                     },
-                    {
-                        name: "name",
-                        type: "varchar",
-                        isUnique: true
+                    { 
+                        name: "name", 
+                        type: "varchar", 
+                        isUnique: true 
                     },
-                    {
-                        name: "description",
-                        type: "varchar"
+                    { 
+                        name: "description", 
+                        type: "varchar" 
                     },
                     { 
                         name: "teacher_id", 
-                        type: "uuid" 
+                        type: "uuid",
+                        isNullable: true
                     },
                     { 
                         name: "student_id", 
-                        type: "uuid" 
+                        type: "uuid",
+                        isNullable: true
                     },
-                    {
-                        name: "create_at",
-                        type: "timestamp",
-                        default: "now()"
+                    { 
+                        name: "create_at", 
+                        type: "timestamp", 
+                        default: "now()" 
                     },
                 ],
                 foreignKeys: [
-                    {
-                        columnNames: ["teacher_id"],
-                        referencedColumnNames: ["id"],
-                        referencedTableName: "teachers",
-                        name: "fk_class_teacher",
-                        onDelete: "RESTRICT",
-                        onUpdate: "CASCADE",
+                    { 
+                        columnNames: ["teacher_id"], 
+                        referencedColumnNames: ["id"], 
+                        referencedTableName: "teachers", 
+                        name: "fk_class_teacher", 
+                        onDelete: "RESTRICT", 
+                        onUpdate: "CASCADE" 
                     },
-                    {
-                        columnNames: ["student_id"],
-                        referencedColumnNames: ["id"],
-                        referencedTableName: "students",
-                        name: "fk_class_students",
-                        onDelete: "RESTRICT",
-                        onUpdate: "CASCADE",
+                    { 
+                        columnNames: ["student_id"], 
+                        referencedColumnNames: ["id"], 
+                        referencedTableName: "students", 
+                        name: "fk_class_students", 
+                        onDelete: "RESTRICT", 
+                        onUpdate: "CASCADE" 
                     },
                 ],
             })

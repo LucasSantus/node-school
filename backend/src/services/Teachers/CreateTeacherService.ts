@@ -10,7 +10,7 @@ export class CreateTeacherService{
         const repo = getRepository(Teacher);
 
         if(await repo.findOne({name})){
-            return new Error("Teacher already exists");
+            return new Error("Teacher already exists!");
         }
 
         const teacher = repo.create({
