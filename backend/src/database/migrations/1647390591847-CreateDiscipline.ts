@@ -9,7 +9,7 @@ export class CreateDiscipline1647390591847 implements MigrationInterface {
                     { 
                         name: "id", 
                         type: "uuid", 
-                        isPrimary: true 
+                        isPrimary: true
                     },
                     { 
                         name: "name", 

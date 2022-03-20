@@ -18,7 +18,7 @@ export class RelationStudents1647390591847 implements MigrationInterface {
             "students",
             new TableForeignKey(
                 { 
-                    name: "fk_students_disciplines", 
+                    name: "fk_students_discipline", 
                     columnNames: ['discipline_id'], 
                     referencedTableName: 'disciplines', 
                     referencedColumnNames: ['id'], 

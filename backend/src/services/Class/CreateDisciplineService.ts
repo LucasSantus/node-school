@@ -7,11 +7,11 @@ type DisciplineRequest = {
     name: string;
     description: string;
     teacher_id: string;
-    students: string[];
+    student_ids: string[];
 }
 
 export class CreateDisciplineService{
-    async execute({name, description, teacher_id, students}: DisciplineRequest): Promise<Discipline | Error>{
+    async execute({name, description, teacher_id, student_ids}: DisciplineRequest): Promise<Discipline | Error>{
         const repo = getRepository(Discipline);
         const repoTeacher = getRepository(Teacher);
         const repoStudent = getRepository(Student);
@@ -32,9 +32,10 @@ export class CreateDisciplineService{
             discipline.teacher = await repoTeacher.findOne(teacher_id);
         }
 
-        if(students) discipline.students = await repoStudent.findByIds(students);
+        if(student_ids) discipline.students = await repoStudent.findByIds(student_ids);
 
         await repo.save(discipline);
+
         return discipline;
     }
 }

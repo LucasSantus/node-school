@@ -3,11 +3,11 @@ import { CreateDisciplineService } from "../../services/Class/CreateDisciplineSe
 
 export class CreateDisciplineController{
     async handle(request: Request, response: Response){
-        const { name, description, teacher_id, students } = request.body;
+        const { name, description, teacher_id, student_ids } = request.body;
 
         const service = new CreateDisciplineService();
 
-        const result = await service.execute({name, description, teacher_id, students});
+        const result = await service.execute({name, description, teacher_id, student_ids});
 
         if(result instanceof Error){
             return response.status(400).json(result.message);
