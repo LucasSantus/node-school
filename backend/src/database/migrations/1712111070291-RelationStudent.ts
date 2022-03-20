@@ -6,7 +6,7 @@ export class RelationStudents1647390591847 implements MigrationInterface {
             "students",
             new TableColumn(
                 { 
-                    name: "classe_id", 
+                    name: "discipline_id", 
                     type: "uuid", 
                     isUnique: true,
                     isNullable: true
@@ -18,9 +18,9 @@ export class RelationStudents1647390591847 implements MigrationInterface {
             "students",
             new TableForeignKey(
                 { 
-                    name: "fk_students_class", 
-                    columnNames: ['classe_id'], 
-                    referencedTableName: 'class', 
+                    name: "fk_students_disciplines", 
+                    columnNames: ['discipline_id'], 
+                    referencedTableName: 'disciplines', 
                     referencedColumnNames: ['id'], 
                     onDelete: "RESTRICT", 
                     onUpdate: "CASCADE" 

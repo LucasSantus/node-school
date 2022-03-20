@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { CreateClassService } from "../../services/Class/CreateClassService";
+import { CreateDisciplineService } from "../../services/Class/CreateDisciplineService";
 
-export class CreateClassController{
+export class CreateDisciplineController{
     async handle(request: Request, response: Response){
         const { name, description, teacher_id, students } = request.body;
 
-        const service = new CreateClassService();
+        const service = new CreateDisciplineService();
 
         const result = await service.execute({name, description, teacher_id, students});
 

@@ -1,14 +1,14 @@
 import { getRepository } from "typeorm";
-import { Class } from "../../entities/Class";
+import { Discipline } from "../../entities/Discipline";
 
-type ClassUpdateRequest = {
+type DisciplineUpdateRequest = {
     id: string
     name: string;
 }
 
-export class UpdateClassService{
-    async execute({id, name}: ClassUpdateRequest){
-        const repo = getRepository(Class);
+export class UpdateDisciplineService{
+    async execute({id, name}: DisciplineUpdateRequest){
+        const repo = getRepository(Discipline);
 
         const discipline = await repo.findOne(id);
 

@@ -1,6 +1,6 @@
 import { Entity, Column, ManyToOne, JoinTable, JoinColumn } from "typeorm";
 import { BaseEntity } from "./BaseEntity";
-import { Class } from "./Class";
+import { Discipline } from "./Discipline";
 
 @Entity("students")
 export class Student extends BaseEntity{
@@ -8,9 +8,9 @@ export class Student extends BaseEntity{
     name: string;
 
     @Column({nullable: true})
-    classe_id: string;
+    discipline_id: string;
 
-    @ManyToOne(type => Class, students => students.id, { eager: true, nullable: true})
-    @JoinColumn({name: "classe_id"})
-    classe: Class;
+    @ManyToOne(type => Discipline, students => students.id, { eager: true, nullable: true})
+    @JoinColumn({name: "discipline_id"})
+    discipline: Discipline;
 }

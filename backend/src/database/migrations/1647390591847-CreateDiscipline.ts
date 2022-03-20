@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateClass1647390591847 implements MigrationInterface {
+export class CreateDiscipline1647390591847 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: 'class',
+                name: 'disciplines',
                 columns: [
                     { 
                         name: "id", 
@@ -41,7 +41,7 @@ export class CreateClass1647390591847 implements MigrationInterface {
                         columnNames: ["teacher_id"], 
                         referencedColumnNames: ["id"], 
                         referencedTableName: "teachers", 
-                        name: "fk_class_teacher", 
+                        name: "fk_discipline_teacher", 
                         onDelete: "RESTRICT", 
                         onUpdate: "CASCADE" 
                     },
@@ -49,7 +49,7 @@ export class CreateClass1647390591847 implements MigrationInterface {
                         columnNames: ["student_id"], 
                         referencedColumnNames: ["id"], 
                         referencedTableName: "students", 
-                        name: "fk_class_students", 
+                        name: "fk_discipline_students", 
                         onDelete: "RESTRICT", 
                         onUpdate: "CASCADE" 
                     },

@@ -3,8 +3,8 @@ import { BaseEntity } from "./BaseEntity";
 import { Student } from "./Student";
 import { Teacher } from "./Teachers";
 
-@Entity("class")
-export class Class extends BaseEntity{
+@Entity("disciplines")
+export class Discipline extends BaseEntity{
     @Column()
     name: string;
 
@@ -14,14 +14,14 @@ export class Class extends BaseEntity{
     @Column({nullable: true})
     teacher_id: string;
 
-    @ManyToOne(type => Teacher, teacher => teacher.classes, { nullable: true})
+    @ManyToOne(type => Teacher, teacher => teacher.disciplines, { nullable: true})
     @JoinColumn({ name: 'teacher_id' })
     teacher: Teacher;
 
     @Column({nullable: true})
     student_id: string;
 
-    @OneToMany(type => Student, classe => Class, { nullable: true})
+    @OneToMany(type => Student, discipline => Discipline, { nullable: true})
     @JoinColumn({ name: 'student_id' })
     students: Student[];
 }

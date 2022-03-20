@@ -1,12 +1,13 @@
 import { Request, Response } from "express";
+import { UpdateDisciplineService } from "../../services/Class/UpdateDisciplineService";
 
-export class UpdateClassController{
+export class UpdateDisciplineController{
     async handle(request: Request, response: Response){
         const { id } = request.params;
 
         const { name, description } = request.body;
 
-        const service = new UpdateClassService();
+        const service = new UpdateDisciplineService();
 
         const result = await service.execute({id, name});
         
