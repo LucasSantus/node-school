@@ -18,3 +18,4 @@ export class UpdateTeacherController{
         return response.json(result);
     }
 }
+
