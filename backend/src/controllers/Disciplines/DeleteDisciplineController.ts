@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { DeleteDisciplineService } from "../../services/Class/DeleteDisciplineService";
+import { DeleteDisciplineService } from "../../services/Disciplines/DeleteDisciplineService";
 
 export class DeleteDisciplineController{
     async handle(request: Request, response: Response){

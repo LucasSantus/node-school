@@ -3,10 +3,10 @@ import { Router } from "express";
 const routesDiscipline = Router();
 
 // Import Controller Classes
-import { CreateDisciplineController } from "../controllers/Class/CreateDisciplineController";
-import { DeleteDisciplineController } from "../controllers/Class/DeleteDisciplineController";
-import { GetAllDisciplinesController } from "../controllers/Class/GetAllDisciplinesController";
-import { UpdateDisciplineController } from "../controllers/Class/UpdateDisciplineController";
+import { CreateDisciplineController } from "../controllers/Disciplines/CreateDisciplineController";
+import { DeleteDisciplineController } from "../controllers/Disciplines/DeleteDisciplineController";
+import { GetAllDisciplinesController } from "../controllers/Disciplines/GetAllDisciplinesController";
+import { UpdateDisciplineController } from "../controllers/Disciplines/UpdateDisciplineController";
 
 routesDiscipline.post("/", new CreateDisciplineController().handle);
 routesDiscipline.get("/", new GetAllDisciplinesController().handle);

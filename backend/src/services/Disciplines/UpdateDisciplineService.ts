@@ -40,17 +40,10 @@ export class UpdateDisciplineService{
         discipline.name = name ? name : discipline.name;
         discipline.description = description ? description : discipline.description;
         discipline.teacher_id = teacher_id ? teacher_id : discipline.teacher_id;
-        discipline.students = listStudents;
+        discipline.students = listStudents ? listStudents : discipline.students;
 
         await repo.save(discipline);
+
         return discipline;
     }
 }
-
-
-modified: entity ( Discipline, Student)
-
-modified: services ( CreateDisciplineService, GetAllDisciplinesService, UpdateDisciplineService )
-
-Insomnia_2022-03-21.json
-RelationStudents
