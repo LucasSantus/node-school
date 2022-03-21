@@ -68,24 +68,3 @@ export default function Dashboard(){
         </Container>
     );
 }
-
-git commit -m ":rocket: making changes to the design.
-
-backend
-    - add Cors project
-
-    - modifying .env
-    - modifying docker-compose.yml
-    - modifying package-lock.json
-    - modifying package.json
-    - modifying src/server.ts
-    - modifying yarn.lock
-    
-        modified:   frontend/package-lock.json
-        modified:   frontend/package.json
-        modified:   frontend/src/pages/Dashboard.tsx
-
-        frontend/DataGrid.tsx
-        frontend/src/pages/Discipline/
-        frontend/src/services/
-        frontend/src/types/
