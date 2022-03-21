@@ -1,4 +1,4 @@
-import { Entity, Column, JoinColumn, ManyToOne, OneToMany, JoinTable } from "typeorm";
+import { Entity, Column, JoinColumn, ManyToOne, OneToMany, ManyToMany, JoinTable } from "typeorm";
 import { BaseEntity } from "./BaseEntity";
 import { Student } from "./Student";
 import { Teacher } from "./Teachers";
@@ -19,6 +19,10 @@ export class Discipline extends BaseEntity{
     teacher: Teacher;
 
     // @OneToMany(type => Student, discipline => Discipline, { nullable: true})
-    @OneToMany(type => Student, student => student.discipline)
+    // @OneToMany(type => Student, student => student.discipline)
+    // students: Student[];
+
+    @ManyToMany(() => Student)
+    @JoinTable()
     students: Student[];
 }

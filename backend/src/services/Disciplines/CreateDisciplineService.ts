@@ -40,8 +40,6 @@ export class CreateDisciplineService{
             teacher_id,
         });
 
-        await repo.save(discipline);
-
         discipline.students = listStudents
 
         await repo.save(discipline);
