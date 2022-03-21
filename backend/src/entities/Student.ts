@@ -6,4 +6,11 @@ import { Discipline } from "./Discipline";
 export class Student extends BaseEntity{
     @Column()
     name: string;
+
+    @Column({nullable: true})
+    discipline_id: string;
+
+    @ManyToOne(type => Discipline, students => students.id, { nullable: false})
+    @JoinColumn({name: "discipline_id"})
+    discipline: Discipline;
 }
