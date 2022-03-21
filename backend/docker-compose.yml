@@ -4,7 +4,7 @@ services:
     container_name: school_api
     build: .
     ports:
-      - 3000:3000
+      - 4000:4000
     volumes:
       - .:/home/api
       - /home/api/node_modules
