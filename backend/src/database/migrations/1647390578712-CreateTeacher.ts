@@ -11,8 +11,18 @@ export class CreateTeachers1647390578712 implements MigrationInterface {
                         type: "uuid", 
                         isPrimary: true 
                     },
-                    { 
-                        name: "name", 
+                    {
+                        name: "first_name", 
+                        type: "varchar", 
+                        isUnique: true 
+                    },
+                    {
+                        name: "last_name", 
+                        type: "varchar", 
+                        isUnique: true 
+                    },
+                    {
+                        name: "email", 
                         type: "varchar", 
                         isUnique: true 
                     },

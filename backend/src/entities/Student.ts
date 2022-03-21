@@ -5,12 +5,11 @@ import { Discipline } from "./Discipline";
 @Entity("students")
 export class Student extends BaseEntity{
     @Column()
-    name: string;
+    first_name: string;
 
-    // @Column({nullable: true})
-    // discipline_id: string;
+    @Column()
+    last_name: string;
 
-    // @ManyToOne(type => Discipline, students => students.id, { nullable: false})
-    // @JoinColumn({name: "discipline_id"})
-    // discipline: Discipline;
+    @Column()
+    email: string;
 }

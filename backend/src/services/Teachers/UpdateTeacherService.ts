@@ -3,11 +3,13 @@ import { Teacher } from "../../entities/Teachers";
 
 type TeacherUpdateRequest = {
     id: string
-    name: string;
+    first_name: string;
+    last_name: string;
+    email: string;
 }
 
 export class UpdateTeacherService{
-    async execute({id, name}: TeacherUpdateRequest){
+    async execute({id, first_name, last_name, email}: TeacherUpdateRequest){
         const repo = getRepository(Teacher);
 
         const teacher = await repo.findOne(id);
@@ -16,7 +18,10 @@ export class UpdateTeacherService{
             return new Error("Teacher does not exists!");
         }
 
-        teacher.name = name ? name : teacher.name;
+        teacher.first_name = first_name ? first_name : teacher.first_name
+        teacher.last_name = last_name ? last_name : teacher.last_name
+        teacher.email = email ? email : teacher.email
+
         await repo.save(teacher);
         return teacher;
     }

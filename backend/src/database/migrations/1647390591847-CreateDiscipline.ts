@@ -12,7 +12,7 @@ export class CreateDiscipline1647390591847 implements MigrationInterface {
                         isPrimary: true
                     },
                     { 
-                        name: "name", 
+                        name: "title", 
                         type: "varchar", 
                         isUnique: true 
                     },
@@ -25,11 +25,6 @@ export class CreateDiscipline1647390591847 implements MigrationInterface {
                         type: "uuid",
                         isNullable: true
                     },
-                    // { 
-                    //     name: "student_id", 
-                    //     type: "uuid",
-                    //     isNullable: true
-                    // },
                     { 
                         name: "create_at", 
                         type: "timestamp", 
@@ -45,14 +40,6 @@ export class CreateDiscipline1647390591847 implements MigrationInterface {
                         onDelete: "RESTRICT", 
                         onUpdate: "CASCADE" 
                     },
-                    // { 
-                    //     columnNames: ["student_id"], 
-                    //     referencedColumnNames: ["id"], 
-                    //     referencedTableName: "students", 
-                    //     name: "fk_discipline_students", 
-                    //     onDelete: "RESTRICT", 
-                    //     onUpdate: "CASCADE" 
-                    // },
                 ],
             })
         )

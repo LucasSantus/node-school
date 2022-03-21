@@ -3,11 +3,11 @@ import { CreateStudentService } from "../../services/Students/CreateStudentServi
 
 export class CreateStudentController{
     async handle(request: Request, response: Response){
-        const { name } = request.body;
+        const { first_name, last_name, email } = request.body;
 
         const service = new CreateStudentService();
 
-        const result = await service.execute({name});
+        const result = await service.execute({first_name, last_name, email});
         
         if(result instanceof Error){
             return response.status(400).json(result.message);

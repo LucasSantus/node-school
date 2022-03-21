@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, Table, TableColumn, TableForeignKey } from "typeorm";
+import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
 export class CreateStudents1647390563424 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
@@ -11,8 +11,18 @@ export class CreateStudents1647390563424 implements MigrationInterface {
                         type: "uuid", 
                         isPrimary: true 
                     },
-                    { 
-                        name: "name", 
+                    {
+                        name: "first_name", 
+                        type: "varchar", 
+                        isUnique: true 
+                    },
+                    {
+                        name: "last_name", 
+                        type: "varchar", 
+                        isUnique: true 
+                    },
+                    {
+                        name: "email", 
                         type: "varchar", 
                         isUnique: true 
                     },

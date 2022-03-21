@@ -5,14 +5,14 @@ import { Teacher } from "../../entities/Teachers";
 
 type DisciplineUpdateRequest = {
     id: string
-    name: string;
+    title: string;
     description: string;
     teacher_id: string;
     student_id: string[];
 }
 
 export class UpdateDisciplineService{
-    async execute({id, name, description, teacher_id, student_id}: DisciplineUpdateRequest){
+    async execute({id, title, description, teacher_id, student_id}: DisciplineUpdateRequest){
         const repo = getRepository(Discipline);
         const repoTeacher = getRepository(Teacher);
         const repoStudent = getRepository(Student);
@@ -37,7 +37,7 @@ export class UpdateDisciplineService{
             }
         }
 
-        discipline.name = name ? name : discipline.name;
+        discipline.title = title ? title : discipline.title;
         discipline.description = description ? description : discipline.description;
         discipline.teacher_id = teacher_id ? teacher_id : discipline.teacher_id;
         discipline.students = listStudents ? listStudents : discipline.students;

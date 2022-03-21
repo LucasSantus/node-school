@@ -4,19 +4,19 @@ import { Student } from "../../entities/Student";
 import { Teacher } from "../../entities/Teachers";
 
 type DisciplineRequest = {
-    name: string;
+    title: string;
     description: string;
     teacher_id: string;
     student_id: string[];
 }
 
 export class CreateDisciplineService{
-    async execute({name, description, teacher_id, student_id}: DisciplineRequest): Promise<Discipline | Error>{
+    async execute({title, description, teacher_id, student_id}: DisciplineRequest): Promise<Discipline | Error>{
         const repo = getRepository(Discipline);
         const repoTeacher = getRepository(Teacher);
         const repoStudent = getRepository(Student);
 
-        if(await repo.findOne({name})){
+        if(await repo.findOne({title})){
             return new Error("Discipline already exists!");
         }
 
@@ -35,7 +35,7 @@ export class CreateDisciplineService{
         }
 
         const discipline = repo.create({
-            name,
+            title,
             description,
             teacher_id,
         });
