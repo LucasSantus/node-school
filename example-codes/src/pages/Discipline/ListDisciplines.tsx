@@ -4,29 +4,27 @@ import { useState } from 'react';
 
 import { Container, Grid } from '@mui/material';
 
-import CardCustom from '../components/Card';
-
 import "./../ui/styles/pages/Dashboard.css"
 
 import { useEffect } from "react";
 
 export default function Dashboard(){
-    const [disciplines, setDisciplines] = useState<DisciplineInterface[]>([]);
+    // const [disciplines, setDisciplines] = useState<DisciplineInterface[]>([]);
 
-    useEffect(() => {
-        ApiService
-            .get("/disciplines")
-            .then((response) => {
-                setDisciplines(response.data)
-            })
-            .catch((err) => {
-                alert("ops! ocorreu um erro" + err);
-            });
-    }, []);
+    // useEffect(() => {
+    //     ApiService
+    //         .get("/disciplines")
+    //         .then((response) => {
+    //             setDisciplines(response.data)
+    //         })
+    //         .catch((err) => {
+    //             alert("ops! ocorreu um erro" + err);
+    //         });
+    // }, []);
 
     return (
         <Container>
-            <Grid
+            {/* <Grid
                 container 
                 direction="row"
                 justifyContent="center"
@@ -64,7 +62,7 @@ export default function Dashboard(){
                         </div>
                     )
                 }
-            </Grid>
+            </Grid> */}
         </Container>
     );
 }

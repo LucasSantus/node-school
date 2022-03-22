@@ -11,23 +11,31 @@ import "./../ui/styles/pages/Dashboard.css"
 import { ApiService } from "../services/ApiService";
 import DisciplineInterface from "../types/discipline.type";
 import { useEffect } from "react";
+import DataGridCustom from "../components/DataGrid";
 
 export default function Dashboard(){
     const [disciplines, setDisciplines] = useState<DisciplineInterface[]>([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         ApiService
             .get("/disciplines")
             .then((response) => {
-                setDisciplines(response.data)
+                setDisciplines(response.data);
+                setLoading(false);
             })
             .catch((err) => {
-                alert("ops! ocorreu um erro" + err);
+                
             });
     }, []);
 
     return (
         <Container>
+            <DataGridCustom
+                title={"Não existem registros!"}
+                loading={loading}
+            />
+{/*             
             <Grid
                 container 
                 direction="row"
@@ -66,7 +74,7 @@ export default function Dashboard(){
                         </div>
                     )
                 }
-            </Grid>
+            </Grid> */}
         </Container>
     );
 }

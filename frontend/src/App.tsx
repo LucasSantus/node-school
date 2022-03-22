@@ -1,13 +1,22 @@
-import AppRoutes from "./routes/Routes";
-import { ThemeProvider } from "@material-ui/core";
-import theme from "./ui/themes/theme";
+import { useRoutes } from 'react-router-dom';
+import routes from './router';
+import AdapterDateFns from '@mui/lab/AdapterDateFns';
+import LocalizationProvider from '@mui/lab/LocalizationProvider';
 
-function App() {
-    return (
-        <ThemeProvider theme={theme}>
-            <AppRoutes />
-        </ThemeProvider>
-    );
+import ThemeProvider from './theme/ThemeProvider';
+import { CssBaseline } from '@mui/material';
+
+const App = () => {
+
+  const content = useRoutes(routes);
+
+  return (
+    <ThemeProvider>
+      <LocalizationProvider dateAdapter={AdapterDateFns}>
+        <CssBaseline />
+        {content}
+      </LocalizationProvider>
+    </ThemeProvider>
+  );
 }
-
 export default App;
