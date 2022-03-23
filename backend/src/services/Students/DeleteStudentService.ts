@@ -8,7 +8,7 @@ export class DeleteStudentService{
         if(!await repo.findOne(id)){
             return new Error("Student does not exists!");
         }  
-         
+
         await repo.delete(id);
     }
 }

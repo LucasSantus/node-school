@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
     Button,
     Card,
@@ -24,6 +24,8 @@ import { NavLink } from 'react-router-dom';
 
 import SettingsIcon from '@mui/icons-material/Settings';
 import MoreHorizTwoToneIcon from '@mui/icons-material/MoreHorizTwoTone';
+import DisciplineInterface from 'src/types/discipline.type';
+import { ApiService } from 'src/services/ApiService';
 
 const ListWrapper = styled(Box)(
   ({ theme }) => `
@@ -121,9 +123,23 @@ function TaskSearch() {
     }
   ];
 
-  const actionRef1 = useRef<any>(null);
-  const [openPeriod, setOpenMenuPeriod] = useState<boolean>(false);
-  const [period, setPeriod] = useState<string>(periods[0].text);
+    const actionRef1 = useRef<any>(null);
+    const [openPeriod, setOpenMenuPeriod] = useState<boolean>(false);
+    const [period, setPeriod] = useState<string>(periods[0].text);
+
+    const [disciplines, setDisciplines] = useState<DisciplineInterface[]>([]);
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        ApiService
+            .get("/disciplines")
+            .then((response) => {
+                setDisciplines(response.data);
+            })
+            .catch((err) => {
+                
+            });
+    }, []);
 
   return (
     <>
@@ -146,51 +162,64 @@ function TaskSearch() {
                     </Button>
                 </Grid>
             </Grid>
+            
 
             <Grid container item xs={12} md={4} sx={{marginLeft: 3}}>
-                <Card>
-                    <CardContent>
-                        <Link href="#" variant="h3" color="text.primary" underline="hover">
-                            Turma de Engenharia de Software 
-                        </Link>
-                        <Typography sx={{ pb: 2 }} color="text.secondary">
-                            Engenharia de software é uma disciplina relativamente nova quando 
-                            comparada com as engenharias tradicionais. Sua definição ocorreu em 1968, 
-                            em uma conferência patrocinada pela NATO que reuniu profissionais 
-                            líderes da indústria de software daquela época.
-                        </Typography>
-                        <Grid container justifyContent="space-between" alignItems="center" sx={{gap: 1}}>
-                            <Grid item>
-                                <Button 
-                                    size="small" 
-                                    variant="contained"
-                                    component={NavLink} 
-                                    to="/disciplines/datas/"
-                                >
-                                    Ver Mais
-                                </Button>
-                            </Grid>
-                            <Grid item justifyContent="end">
-                                <IconButton 
-                                    color="primary" 
-                                    sx={{ p: 0.5 }}
-                                    ref={ref}
-                                    onClick={handleOpen}
-                                >
-                                    <MoreHorizTwoToneIcon />
-                                </IconButton>
-                            </Grid>
-                        </Grid>
-                        <Menu anchorEl={ref.current} onClose={handleClose} open={isOpen}>
-                            <MenuItem sx={{ px: 3 }} component={NavLink} to="/overview">
-                                Editar
-                            </MenuItem>
-                            <MenuItem sx={{ px: 3 }} component={NavLink} to="/components/tabs">
-                                Deletar
-                            </MenuItem>
-                        </Menu>
-                    </CardContent>
-                </Card>
+            {disciplines.length > 0 ? (
+                    disciplines.map((item) => (
+                        <Card>
+                            <CardContent>
+                                <Link href="#" variant="h3" color="text.primary" underline="hover">
+                                    {item.title} 
+                                </Link>
+                                <Typography sx={{ pb: 2 }} color="text.secondary">
+                                    {item.description}
+                                </Typography>
+                                <Grid container justifyContent="space-between" alignItems="center" sx={{gap: 1}}>
+                                    <Grid item>
+                                        <Button 
+                                            size="small" 
+                                            variant="contained"
+                                            component={NavLink}
+                                            to="/disciplines/datas/"
+                                        >
+                                            Ver Mais
+                                        </Button>
+                                    </Grid>
+                                    <Grid item justifyContent="end">
+                                        <IconButton 
+                                            color="primary" 
+                                            sx={{ p: 0.5 }}
+                                            ref={ref}
+                                            onClick={handleOpen}
+                                        >
+                                            <MoreHorizTwoToneIcon />
+                                        </IconButton>
+                                    </Grid>
+                                </Grid>
+                                <Menu anchorEl={ref.current} onClose={handleClose} open={isOpen}>
+                                    <MenuItem sx={{ px: 3 }} component={NavLink} to="/overview">
+                                        Editar
+                                    </MenuItem>
+                                    <MenuItem sx={{ px: 3 }} component={NavLink} to="/components/tabs">
+                                        Deletar
+                                    </MenuItem>
+                                </Menu>
+                            </CardContent>
+                        </Card>
+                    ))) : (
+                        <div 
+                            style={{
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                height: '95vh'
+                            }}
+                        >
+
+                        </div>
+                    )
+                }
             </Grid>
         </Grid>
     </>
