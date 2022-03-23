@@ -6,23 +6,14 @@ import RecentOrders from 'src/content/applications/Transactions/RecentOrders';
 import DataGridCustom from 'src/components/DataGrid/DataGrid';
 
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid';
+import DisciplineInterface from 'src/types/discipline.type';
 
-function ListInformations() {
-    // const [disciplines, setDisciplines] = useState<DisciplineInterface[]>([]);
-    const [loading, setLoading] = useState(false);
+interface InterfaceInformations {
+    discipline: DisciplineInterface;
+    loading: boolean;
+}
 
-    useEffect(() => {
-        // ApiService
-        //     .get("/disciplines")
-        //     .then((response) => {
-        //         setDisciplines(response.data);
-        //         setLoading(false);
-        //     })
-        //     .catch((err) => {
-                
-        //     });
-    }, []);
-
+const ListInformations: React.FC<InterfaceInformations> = (props) => {
     const columns: GridColDef[] = [
         {
             field: 'first_name',
@@ -54,6 +45,10 @@ function ListInformations() {
         { id: "7", first_name: 'Frances', last_name: 'Rossini', email: "36" },
         { id: "8", first_name: 'Roxie', last_name: 'Harvey', email: "65" },
     ];
+
+    useEffect(() => {
+        console.log(props.discipline.id)
+    }, []);
 
     return (
         <>
@@ -94,7 +89,7 @@ function ListInformations() {
                     >
                         <DataGridCustom
                             title={"Não existem registros!"}
-                            loading={loading}
+                            loading={props.loading}
                             columns={columns}
                             rows={rows}
                         />

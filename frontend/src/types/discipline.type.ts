@@ -8,4 +8,3 @@ export default interface DisciplineInterface {
     teacher_id?: string
     students?: StudentInterface[]
 }
-

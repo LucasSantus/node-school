@@ -119,7 +119,7 @@ const routes: PartialRouteObject[] = [
         )
       },
       {
-        path: 'datas',
+        path: 'datas/:id',
         element: <ListInformations />
       },
       {

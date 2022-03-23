@@ -27,6 +27,9 @@ import MoreHorizTwoToneIcon from '@mui/icons-material/MoreHorizTwoTone';
 import DisciplineInterface from 'src/types/discipline.type';
 import { ApiService } from 'src/services/ApiService';
 
+import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
+import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
+
 const ListWrapper = styled(Box)(
   ({ theme }) => `
         .MuiTouchRipple-root {
@@ -85,43 +88,43 @@ const OutlinedInputWrapper = styled(OutlinedInput)(
 );
 
 function TaskSearch() {
-      const ref = useRef<any>(null);
-  const [isOpen, setOpen] = useState<boolean>(false);
+    const ref = useRef<any>(null);
+    const [isOpen, setOpen] = useState<boolean>(false);
 
-  const handleOpen = (): void => {
-    setOpen(true);
-  };
+    const handleOpen = (): void => {
+        setOpen(true);
+    };
 
-  const handleClose = (): void => {
-    setOpen(false);
-  };
+    const handleClose = (): void => {
+        setOpen(false);
+    };
 
-  const handleDelete = () => {
-    
-  };
+    const handleDelete = () => {
+        
+    };
 
-  const handleClick = () => {
-    
-  };
+    const handleClick = () => {
+        
+    };
 
-  const periods = [
-    {
-      value: 'popular',
-      text: 'Most popular'
-    },
-    {
-      value: 'recent',
-      text: 'Recent tasks'
-    },
-    {
-      value: 'updated',
-      text: 'Latest updated tasks'
-    },
-    {
-      value: 'oldest',
-      text: 'Oldest tasks first'
-    }
-  ];
+    const periods = [
+        {
+        value: 'popular',
+        text: 'Most popular'
+        },
+        {
+        value: 'recent',
+        text: 'Recent tasks'
+        },
+        {
+        value: 'updated',
+        text: 'Latest updated tasks'
+        },
+        {
+        value: 'oldest',
+        text: 'Oldest tasks first'
+        }
+    ];
 
     const actionRef1 = useRef<any>(null);
     const [openPeriod, setOpenMenuPeriod] = useState<boolean>(false);
@@ -143,7 +146,7 @@ function TaskSearch() {
 
   return (
     <>
-        <Grid container spacing={3}>
+        <Grid container spacing={3} sx={{paddingLeft: '30px'}}>
             <Grid container justifyContent="space-between" alignItems="center" sx={{marginLeft: 6}}>
                 <Grid item>
                     <Typography variant="h2" component="h2" gutterBottom>
@@ -162,65 +165,67 @@ function TaskSearch() {
                     </Button>
                 </Grid>
             </Grid>
-            
-
-            <Grid container item xs={12} md={4} sx={{marginLeft: 3}}>
-            {disciplines.length > 0 ? (
+                {disciplines.length > 0 ? (
                     disciplines.map((item) => (
-                        <Card>
-                            <CardContent>
-                                <Link href="#" variant="h3" color="text.primary" underline="hover">
-                                    {item.title} 
-                                </Link>
-                                <Typography sx={{ pb: 2 }} color="text.secondary">
-                                    {item.description}
-                                </Typography>
-                                <Grid container justifyContent="space-between" alignItems="center" sx={{gap: 1}}>
-                                    <Grid item>
-                                        <Button 
-                                            size="small" 
-                                            variant="contained"
-                                            component={NavLink}
-                                            to="/disciplines/datas/"
-                                        >
-                                            Ver Mais
-                                        </Button>
+                        <Grid container item xs={12} md={4}>
+                            <Card sx={{ width: '100%', maxHeight: 'auto' }}>
+                                <CardContent>
+                                    <Link component={NavLink} to="/disciplines/datas/" variant="h3" color="text.primary" underline="hover">
+                                        {item.title} 
+                                    </Link>
+                                    <Typography sx={{ pb: 2 }} color="text.secondary">
+                                        {item.description}
+                                    </Typography>
+                                    <Grid container justifyContent="space-between" alignItems="center" sx={{gap: 1}}>
+                                        <Grid item>
+
+                                        </Grid>
+                                        <Grid item justifyContent="end">
+                                            <IconButton
+                                                sx={{
+                                                    '&:hover': {
+                                                        background: '#070C27',
+                                                        opacity: 0.5
+                                                    },
+                                                    color: 'green'
+                                                }}
+                                                color="inherit"
+                                                size="small"
+                                            >
+                                                <EditTwoToneIcon fontSize="small" />
+                                            </IconButton>
+
+                                            <IconButton
+                                                sx={{
+                                                    '&:hover': { 
+                                                        background: '#070C27',
+                                                        opacity: 0.5
+                                                    },
+                                                    color: 'red'
+                                                }}
+                                                color="inherit"
+                                                size="small"
+                                            >
+                                                <DeleteTwoToneIcon fontSize="small" />
+                                            </IconButton>
+                                        </Grid>
                                     </Grid>
-                                    <Grid item justifyContent="end">
-                                        <IconButton 
-                                            color="primary" 
-                                            sx={{ p: 0.5 }}
-                                            ref={ref}
-                                            onClick={handleOpen}
-                                        >
-                                            <MoreHorizTwoToneIcon />
-                                        </IconButton>
-                                    </Grid>
-                                </Grid>
-                                <Menu anchorEl={ref.current} onClose={handleClose} open={isOpen}>
-                                    <MenuItem sx={{ px: 3 }} component={NavLink} to="/overview">
-                                        Editar
-                                    </MenuItem>
-                                    <MenuItem sx={{ px: 3 }} component={NavLink} to="/components/tabs">
-                                        Deletar
-                                    </MenuItem>
-                                </Menu>
-                            </CardContent>
-                        </Card>
+                                </CardContent>
+                            </Card>
+                        </Grid>
                     ))) : (
                         <div 
                             style={{
                                 display: "flex",
                                 justifyContent: "center",
                                 alignItems: "center",
-                                height: '95vh'
+                                
                             }}
                         >
 
                         </div>
                     )
                 }
-            </Grid>
         </Grid>
     </>
   );
