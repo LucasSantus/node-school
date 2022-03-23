@@ -1,22 +1,14 @@
-import App from './App';
+import React from 'react';
 import ReactDOM from 'react-dom';
-import 'src/utils/chart';
-import * as serviceWorker from './serviceWorker';
-import { HelmetProvider } from 'react-helmet-async';
-import { BrowserRouter } from 'react-router-dom';
-
-import 'nprogress/nprogress.css';
-import { SidebarProvider } from './contexts/SidebarContext';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import './index.css';
 
 ReactDOM.render(
-  <HelmetProvider>
-    <SidebarProvider>
-      <BrowserRouter>
+    <React.StrictMode>
         <App />
-      </BrowserRouter>
-    </SidebarProvider>
-  </HelmetProvider>,
+    </React.StrictMode>,
   document.getElementById('root')
 );
 
-serviceWorker.unregister();
+reportWebVitals();
