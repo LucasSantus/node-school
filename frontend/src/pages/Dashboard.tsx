@@ -1,39 +1,51 @@
 import { useState } from 'react';
 
-import { Box, Container, Typography, Grid, Button, Card, CardHeader, CardContent, IconButton, Link } from '@mui/material';
-
-import "./../ui/styles/pages/Dashboard.css"
+import { Box, Stack, Container, Typography, Grid, Button, Card, CardContent, IconButton } from '@mui/material';
 
 import { ApiService } from "../services/ApiService";
-import DisciplineInterface from "../types/discipline.type";
+
 import { useEffect } from "react";
 
 import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
-import MoreVertTwoToneIcon from '@mui/icons-material/MoreVertTwoTone';
 
-import { NavLink } from 'react-router-dom';
+import { DisciplineInterface } from '../types/types';
+
+import { useNavigate } from "react-router-dom";
+
+import Header from '../components/Header/Header';
 
 export default function Dashboard(){
     const [disciplines, setDisciplines] = useState<DisciplineInterface[]>([]);
-    const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
+    let navigate = useNavigate();
+
+    function handleGetAllDisciplines(){
         ApiService
             .get("/disciplines")
             .then((response) => {
                 setDisciplines(response.data);
-                setLoading(false);
             })
-            .catch((err) => {
+            .catch((error) => {
+                console.log(`Ocorreu uma falha ao buscar as disciplinas\n ${error}`);
             });
+    }
+
+    useEffect(() => {
+        handleGetAllDisciplines();
     }, []);
 
     return (
         <Container>
-            <Grid container spacing={3}>
-                <Grid container justifyContent="space-between" alignItems="center" sx={{ padding: 5}}>
-                    <Grid item>
+            <Header />
+
+            <Grid
+                container 
+                spacing={3} 
+                paddingTop={5}
+            >
+                <Grid container justifyContent="space-between" alignItems="center">
+                    <Grid item justifyContent="start">
                         <Typography variant="h4" component="h4">
                             Disciplinas
                         </Typography>
@@ -52,12 +64,15 @@ export default function Dashboard(){
                                 },
                             }}
                             variant="contained"
+                            onClick={() => {
+                                navigate(`/disciplines/new/`);
+                            }}
                         >
                             Registrar Disciplina
                         </Button>
                     </Grid>
                 </Grid>
-
+                
                 {disciplines.length > 0 ? (
                     disciplines.map((item) => (
                         <Grid container item xs={12} md={4} sx={{ borderColor: 'white' }}>
@@ -66,17 +81,33 @@ export default function Dashboard(){
                                     width: '96%',
                                     paddingTop: 1
                                 }}>
-                                    <Link component={NavLink} to="/disciplines/" variant="h6" color="text.primary" underline="hover">
-                                        {item.title} 
-                                    </Link>
-                                
+
+                                    <Button
+                                        sx={{ 
+                                            mt: { xs: 2, md: 0 }, 
+                                            backgroundColor: 'transparent',
+                                            color: '#90CAF9',
+                                            fontSize: 20,
+                                            '&:hover': {
+                                                color: '#90CAF9',
+                                                backgroundColor: 'transparent',
+                                            },
+                                        }}
+                                        
+                                        onClick={() => {
+                                            navigate(`/disciplines/${item.id}`);
+                                        }}
+                                    >
+                                        {item.title}
+                                    </Button>
+
                                     <CardContent>
                                         <Typography sx={{ pb: 2 }} color="text.secondary">
                                             {item.description}
                                         </Typography>
                                         <Grid container justifyContent="space-between" alignItems="center" sx={{gap: 1}}>
                                             <Grid item></Grid>
-                                            <Grid item justifyContent="end">
+                                            <Grid item justifyContent="end" alignItems="end">
                                                 <IconButton
                                                     sx={{
                                                         '&:hover': {
@@ -111,19 +142,10 @@ export default function Dashboard(){
                             </Grid >
                         </Grid >
                     ))) : (
-                        <div 
-                            style={{
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                
-                            }}
-                        >
-                        </div>
+                        <></>
                     )
                 }
             </Grid>
         </Container>
-       
     );
 }

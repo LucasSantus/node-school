@@ -16,7 +16,6 @@ export default function FormStudent(){
     const [last_name, setLastName] = useState('');
     const [email, setEmail] = useState('');
     
-
     return (
         <Container>
             <Grid spacing={3}>
