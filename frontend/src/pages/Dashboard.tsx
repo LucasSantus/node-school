@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Box, Stack, Container, Typography, Grid, Button, Card, CardContent, IconButton } from '@mui/material';
+import { Container, Typography, Grid, Button, Card, CardContent, IconButton, Link, Box, Chip, Divider, CardActions, AvatarGroup, Tooltip, Avatar, Paper, useMediaQuery } from '@mui/material';
 
 import { ApiService } from "../services/ApiService";
 
@@ -15,137 +15,165 @@ import { useNavigate } from "react-router-dom";
 
 import Header from '../components/Header/Header';
 
+import { ButtonCustom } from '../ui/styles/components/Button';
+import { LinkTitleCardCustom } from '../ui/styles/components/Link';
+
 export default function Dashboard(){
     const [disciplines, setDisciplines] = useState<DisciplineInterface[]>([]);
 
     let navigate = useNavigate();
 
-    function handleGetAllDisciplines(){
-        ApiService
-            .get("/disciplines")
-            .then((response) => {
-                setDisciplines(response.data);
-            })
-            .catch((error) => {
-                console.log(`Ocorreu uma falha ao buscar as disciplinas\n ${error}`);
-            });
+    function handleLimitText(text: string){
+        return text.slice(0, 100).concat('...');
     }
-
+    
     useEffect(() => {
-        handleGetAllDisciplines();
+
     }, []);
 
     return (
-        <Container>
+        <>
             <Header />
 
-            <Grid
-                container 
-                spacing={3} 
-                paddingTop={5}
-            >
-                <Grid container justifyContent="space-between" alignItems="center">
-                    <Grid item justifyContent="start">
-                        <Typography variant="h4" component="h4">
-                            Disciplinas
-                        </Typography>
-                        <Typography variant="subtitle2">
-                            Estas são as disciplinas recentes
-                        </Typography>
-                    </Grid>
-                    <Grid item>
-                        <Button
-                            sx={{ 
-                                mt: { xs: 2, md: 0 }, 
-                                backgroundColor: '#7063C0',
-                                '&:hover': {
-                                    background: '#6153bb' ,
-                                    opacity: 0.5
-                                },
-                            }}
-                            variant="contained"
-                            onClick={() => {
-                                navigate(`/disciplines/new/`);
+            <Container>
+                <Grid
+                    container 
+                    spacing={3} 
+                    paddingTop={5}
+                >
+                    <Grid container justifyContent="space-between" alignItems="center">
+                        <Grid 
+                            item
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'flex-start',
                             }}
                         >
-                            Registrar Disciplina
-                        </Button>
+                            <Typography 
+                                variant="h4" 
+                                component="h4"
+                                sx={{
+                                    paddingLeft: 3,
+                                }}
+                            >
+                                Disciplinas
+                            </Typography>
+                        </Grid>
+                        <Grid item>
+                            <ButtonCustom
+                                variant="contained"
+                                sx={{
+                                    paddingLeft: 3
+                                }}
+                                onClick={() => {
+                                    navigate(`/disciplines/new/`);
+                                }}
+                            >
+                                Registrar Disciplina
+                            </ButtonCustom>
+                        </Grid>
                     </Grid>
-                </Grid>
-                
-                {disciplines.length > 0 ? (
-                    disciplines.map((item) => (
-                        <Grid container item xs={12} md={4} sx={{ borderColor: 'white' }}>
-                            <Grid container spacing={3}>
-                                <Card sx={{
-                                    width: '96%',
-                                    paddingTop: 1
-                                }}>
 
-                                    <Button
-                                        sx={{ 
-                                            mt: { xs: 2, md: 0 }, 
-                                            backgroundColor: 'transparent',
-                                            color: '#90CAF9',
-                                            fontSize: 20,
-                                            '&:hover': {
-                                                color: '#90CAF9',
-                                                backgroundColor: 'transparent',
-                                            },
-                                        }}
-                                        
-                                        onClick={() => {
-                                            navigate(`/disciplines/${item.id}`);
+                    {disciplines.length > 0 ? (
+                        disciplines.map((item) => (
+                            <>
+                                <Grid item xs={12} md={4}>
+                                    <Paper 
+                                        elevation={3}
+                                        sx={{
+                                            height: '100%',
+                                            display: 'flex',
+                                            flexDirection: 'column'
                                         }}
                                     >
-                                        {item.title}
-                                    </Button>
-
-                                    <CardContent>
-                                        <Typography sx={{ pb: 2 }} color="text.secondary">
-                                            {item.description}
-                                        </Typography>
-                                        <Grid container justifyContent="space-between" alignItems="center" sx={{gap: 1}}>
-                                            <Grid item></Grid>
-                                            <Grid item justifyContent="end" alignItems="end">
-                                                <IconButton
-                                                    sx={{
-                                                        '&:hover': {
-                                                            background: '#070C27',
-                                                            opacity: 0.5
-                                                        },
-                                                        color: 'green'
-                                                    }}
-                                                    color="inherit"
-                                                    size="small"
+                                        <Card
+                                            sx={{
+                                                backgroundColor: "#151c46",
+                                                border: '1px solid',
+                                                borderColor: '#48539b',
+                                                height: '100%',
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                justifyContent: 'space-between'
+                                            }}
+                                        >
+                                            <CardContent
+                                                sx={{
+                                                    height: '100%'
+                                                }}
+                                            > 
+                                                <LinkTitleCardCustom href="#" variant="h6" color="text.primary" underline="hover">
+                                                    {item.title}
+                                                </LinkTitleCardCustom>
+                                                <Tooltip
+                                                    title={item.description}
                                                 >
-                                                    <EditTwoToneIcon fontSize="small" />
-                                                </IconButton>
-
-                                                <IconButton
+                                                    <Typography sx={{ pb: 2, color: '#9395A2' }}>
+                                                        {handleLimitText(item.description)}
+                                                    </Typography>
+                                                </Tooltip>
+                                            </CardContent>
+                                                <Divider 
                                                     sx={{
-                                                        '&:hover': { 
-                                                            background: '#070C27',
-                                                            opacity: 0.5
-                                                        },
-                                                        color: 'red'
+                                                        backgroundColor: '#48539b'
                                                     }}
-                                                    color="inherit"
-                                                    size="small"
+                                                />
+                                                <CardActions
+                                                    sx={{
+                                                        alignItems: 'center',
+                                                        justifyContent: 'flex-end',
+                                                    }}
                                                 >
-                                                    <DeleteTwoToneIcon fontSize="small" />
-                                                </IconButton>
-                                            </Grid>
-                                        </Grid>
-                                    </CardContent>
-                                </Card >
-                            </Grid >
-                        </Grid >
-                    ))) : (
-                        <></>
-                    )
-                }
-            </Grid>
-        </Container>
+                                                <Typography
+                                                    display="flex"
+                                                    alignItems="center"
+                                                    variant="subtitle2"
+                                                >
+                                                </Typography>
+                                                <AvatarGroup>
+                                                    <Tooltip arrow title="Editar Disciplina">
+                                                        <IconButton
+                                                            sx={{
+                                                                '&:hover': {
+                                                                    background: '#070C27',
+                                                                    opacity: 0.5
+                                                                },
+                                                                color: 'green'
+                                                            }}
+                                                            color="inherit"
+                                                            size="small"
+                                                        >
+                                                            <EditTwoToneIcon fontSize="small" />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                    <Tooltip arrow title="Deletar Disciplina">
+                                                    <IconButton
+                                                        sx={{
+                                                            '&:hover': { 
+                                                                background: '#070C27',
+                                                                opacity: 0.5
+                                                            },
+                                                            color: 'red'
+                                                        }}
+                                                        color="inherit"
+                                                        size="small"
+                                                    >
+                                                        <DeleteTwoToneIcon fontSize="small" />
+                                                    </IconButton>
+                                                    </Tooltip>
+                                                </AvatarGroup>
+                                            </CardActions>
+                                        </Card>
+                                    </Paper>
+                                </Grid>
+                            </>
+                        ))) : (
+                            <></>
+                        )
+                    }
+                </Grid>
+            </Container>
+        </>
     );
 }

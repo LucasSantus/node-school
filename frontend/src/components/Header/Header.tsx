@@ -1,44 +1,27 @@
-import {
-  Link
-} from "react-router-dom";
-
-import { styled } from '@mui/material/styles';
-
-const LinkCustom = styled(Link)(
-    ({ theme }) => `
-        color: white;
-        text-decoration: none;
-        padding: 10px;
-        &:hover {
-            color: #191E3D;
-        }
-    `
-);
+import { Grid } from "@mui/material";
+import { LinkCustom } from "../../ui/styles/components/Link";
 
 export default function Header(){
     return (
         <nav>
-            <LinkCustom sx={{
-                    
-                }} 
-                to="/"
+            <Grid 
+                sx={{
+                    width:'100vh',
+                    padding: 2
+                }}
             >
-                Home
-            </LinkCustom>
-            <LinkCustom sx={{
-                    
-                }} 
-                to="/students/"
-            >
-                Students
-            </LinkCustom>
-            <LinkCustom sx={{
-                    
-                }} 
-                to="/teachers/"
-            >
-                Teacher
-            </LinkCustom>
+                <LinkCustom to="/">
+                    Home
+                </LinkCustom>
+
+                <LinkCustom to="/students/">
+                    Students
+                </LinkCustom>
+
+                <LinkCustom to="/teachers/">
+                    Teacher
+                </LinkCustom>
+            </Grid>
         </nav>
     );
 }
