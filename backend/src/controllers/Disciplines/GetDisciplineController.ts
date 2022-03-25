@@ -7,8 +7,8 @@ export class GetDisciplineController{
 
         const service = new GetDisciplineService();
 
-        const disciplines = await service.execute(id);
+        const discipline = await service.execute(id);
         
-        return response.json(disciplines);
+        return response.json(discipline);
     }
 }
