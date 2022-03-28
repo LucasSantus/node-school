@@ -1,15 +1,8 @@
-import { Entity, Column, ManyToOne, JoinColumn } from "typeorm";
-import { BaseEntity } from "./BaseEntity";
-import { Discipline } from "./Discipline";
+import { Column, Entity } from "typeorm";
+import { BaseSTEntity } from "./BaseEntity";
 
 @Entity("students")
-export class Student extends BaseEntity{
+export class Student extends BaseSTEntity{
     @Column()
-    first_name: string;
-
-    @Column()
-    last_name: string;
-
-    @Column()
-    email: string;
+    name: string;
 }

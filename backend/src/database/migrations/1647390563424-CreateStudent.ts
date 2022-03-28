@@ -12,19 +12,33 @@ export class CreateStudents1647390563424 implements MigrationInterface {
                         isPrimary: true 
                     },
                     {
-                        name: "first_name", 
+                        name: "name", 
                         type: "varchar", 
                         isUnique: true 
                     },
                     {
-                        name: "last_name", 
+                        name: "cpf", 
                         type: "varchar", 
-                        isUnique: true 
+                        isUnique: true
+                    },
+                    {
+                        name: "telefone", 
+                        type: "varchar", 
+                        isUnique: true
                     },
                     {
                         name: "email", 
                         type: "varchar", 
-                        isUnique: true 
+                        isUnique: true
+                    },
+                    {
+                        name: "birthDate", 
+                        type: "timestamp"
+                    },
+                    {
+                        name: "update_at", 
+                        type: "timestamp",
+                        isNullable: true
                     },
                     { 
                         name: "create_at", 

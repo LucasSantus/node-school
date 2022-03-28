@@ -2,21 +2,23 @@ import { getRepository } from "typeorm";
 import { Student } from "../../entities/Student";
 
 type StudentRequest = {
-    first_name: string;
-    last_name: string;
+    name: string;
+    cpf: string;
+    telefone: string;
     email: string;
+    birthDate: Date;
 }
 
 export class CreateStudentService{
-    async execute({first_name, last_name, email}:StudentRequest): Promise<Student | Error>{
+    async execute({name, cpf, telefone, email, birthDate}:StudentRequest): Promise<Student | Error>{
         const repo = getRepository(Student);
 
-        if(await repo.findOne({first_name})){
+        if(await repo.findOne({name})){
             return new Error("Student already exists!");
         }
 
         const student = repo.create({
-            first_name, last_name, email
+            name, cpf, telefone, email, birthDate
         });
 
         await repo.save(student);

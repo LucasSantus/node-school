@@ -1,4 +1,4 @@
-import { getRepository } from "typeorm";
+import { DeleteDateColumn, getRepository } from "typeorm";
 import { Discipline } from "../../entities/Discipline";
 import { Student } from "../../entities/Student";
 import { Teacher } from "../../entities/Teachers";

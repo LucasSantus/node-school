@@ -1,17 +1,11 @@
-import { Entity, Column, OneToMany, JoinTable, JoinColumn } from "typeorm";
-import { BaseEntity } from "./BaseEntity";
+import { Entity, Column, OneToMany } from "typeorm";
+import { BaseSTEntity } from "./BaseEntity";
 import { Discipline } from "./Discipline";
 
 @Entity("teachers")
-export class Teacher extends BaseEntity{
+export class Teacher extends BaseSTEntity{
     @Column()
-    first_name: string;
-
-    @Column()
-    last_name: string;
-
-    @Column()
-    email: string;
+    name: string;
 
     @OneToMany(type => Discipline, disciplines => disciplines.teacher)
     disciplines: Discipline[];  

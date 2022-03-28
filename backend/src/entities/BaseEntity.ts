@@ -1,7 +1,6 @@
-import { Entity, CreateDateColumn, PrimaryColumn } from "typeorm";
+import { CreateDateColumn, PrimaryColumn, Column } from "typeorm";
 import { v4 as uuid } from "uuid";
 
-@Entity("class")
 export class BaseEntity{
     @PrimaryColumn()
     id: string;
@@ -9,9 +8,26 @@ export class BaseEntity{
     @CreateDateColumn()
     create_at: Date;
 
+    @CreateDateColumn()
+    update_at: Date;
+
     constructor(){
         if(!this.id){
             this.id = uuid()
         }
     }
+}
+
+export class BaseSTEntity extends BaseEntity{
+    @Column()
+    cpf: string;
+
+    @Column()
+    email: string;
+
+    @Column()
+    telefone: string;
+
+    @CreateDateColumn()
+    birthDate: Date;
 }
