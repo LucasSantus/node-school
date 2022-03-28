@@ -80,7 +80,7 @@ export default function ListTeachers(){
                                     paddingLeft: 3,
                                 }}
                             >
-                                Alunos
+                                Professores
                             </Typography>
                         </Grid>
                         <Grid item>
@@ -93,7 +93,7 @@ export default function ListTeachers(){
                                     navigate(`/teachers/new`);
                                 }}
                             >
-                                Registrar Aluno
+                                Registrar Professor
                             </ButtonCustom>
                         </Grid>
                     </Grid>

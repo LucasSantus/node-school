@@ -77,7 +77,7 @@ export const FormTeacher: React.FC<TeacherProps> = (props) => {
     useEffect(() => {
         if(props.type === 'modify'){
             setRequisition("Alterar")
-            props.id ? handleGetStudent(props.id) : console.log("não foi possível recuperar o aluno!") 
+            props.id ? handleGetStudent(props.id) : console.log("não foi possível recuperar o professor!") 
         }
     }, []);
 

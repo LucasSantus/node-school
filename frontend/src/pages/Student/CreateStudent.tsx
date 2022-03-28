@@ -1,14 +1,14 @@
 import { Container } from '@mui/material';
-import { FormTeacher } from '../../components/Form/FormTeacher';
+import { FormStudent } from '../../components/Form/FormStudent';
 
 import Header from '../../components/Header/Header';
 
-export default function CreateTeacher(){
+export default function CreateStudent(){
     return (
         <>
             <Header />
             <Container>
-                <FormTeacher
+                <FormStudent
                     type={"register"}
                 />
             </Container>

@@ -168,8 +168,10 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
         teacherId === "" ? setTeacherIdIsValid(false) : setTeacherIdIsValid(true);
         // studentsId === "" ? setStudentsIdIsValid(false) : setStudentsIdIsValid(true);
 
-        handleStudents()
-        alert(personName)
+        alert(teacherId)
+
+        // handleStudents()
+        // alert(personName)
 
         // if( titleIsValid && descriptionIsValid && teacherIdIsValid ){
         //     handleSubmit();
@@ -298,25 +300,29 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
                                     <FormControl sx={{ m: 1, width: 300 }}>
         <InputLabel id="demo-multiple-chip-label">Chip</InputLabel>
         <Select
-          labelId="demo-multiple-chip-label"
-          id="demo-multiple-chip"
-          multiple
-          value={personName}
-          onChange={handleChange}
-          input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-          renderValue={(selected) => (
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-              {selected.map((value) => (
-                <Chip key={value} label={value} />
-              ))}
-            </Box>
-          )}
-          MenuProps={MenuProps}
+            labelId="demo-multiple-chip-label"
+            id="demo-multiple-chip"
+            multiple
+            value={personName}
+            onChange={handleChange}
+            input={
+                <OutlinedInput id="select-multiple-chip" label="Chip" />
+                }
+            renderValue={(selected) => (
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                    {
+                    selected.map((value) => (
+                        <Chip key={value} label={value} />
+                    ))
+                    }
+                </Box>
+            )}
+            MenuProps={MenuProps}
         >
           {students.map((item) => (
             <MenuItem
               key={item.id}
-              value={item.first_name}
+              value={item.id}
             >
               {item.first_name}
             </MenuItem>
