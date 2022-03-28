@@ -18,13 +18,13 @@ export const LinkTitleCardCustom = styled(LinkMaterial)({
     fontWeight: 700,
     fontSize: '21px',
     lineHeight: 1.4,
-    // font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
     color: '#CBCCD2',
     textDecoration: 'none',
 
     '&:hover': {
         color: '#7063C0',
-        textDecoration: 'underline'
+        textDecoration: 'underline',
+        cursor: 'pointer'
     },
 });
 

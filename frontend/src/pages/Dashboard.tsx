@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Container, Typography, Grid, Button, Card, CardContent, IconButton, Link, Box, Chip, Divider, CardActions, AvatarGroup, Tooltip, Avatar, Paper, useMediaQuery } from '@mui/material';
+import { Container, Typography, Grid, Button, Card, CardContent, IconButton, Link, Box, Chip, Divider, CardActions, AvatarGroup, Tooltip, Avatar, Paper, useMediaQuery, Stack } from '@mui/material';
 
 import { ApiService } from "../services/ApiService";
 
@@ -27,8 +27,19 @@ export default function Dashboard(){
         return text.slice(0, 100).concat('...');
     }
     
-    useEffect(() => {
+    function handleGetAllDisciplines(){
+        ApiService
+            .get("/disciplines")
+            .then((response) => {
+                setDisciplines(response.data);
+            })
+            .catch((error) => {
+                console.log(`Ocorreu uma falha ao buscar as disciplinas\n ${error}`);
+            });
+    }
 
+    useEffect(() => {
+        handleGetAllDisciplines();
     }, []);
 
     return (
@@ -103,7 +114,14 @@ export default function Dashboard(){
                                                     height: '100%'
                                                 }}
                                             > 
-                                                <LinkTitleCardCustom href="#" variant="h6" color="text.primary" underline="hover">
+                                                <LinkTitleCardCustom 
+                                                    variant="h6" 
+                                                    color="text.primary" 
+                                                    underline="hover"
+                                                    onClick={() => {
+                                                        navigate(`/disciplines/${item.id}`);
+                                                    }}
+                                                >
                                                     {item.title}
                                                 </LinkTitleCardCustom>
                                                 <Tooltip
@@ -169,7 +187,28 @@ export default function Dashboard(){
                                 </Grid>
                             </>
                         ))) : (
-                            <></>
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    minWidth: '100%',
+                                    minHeight: '80vh',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}
+                            >
+                                <Stack
+                                    sx={{
+                                        borderRadius: 6,
+                                        border: 1,
+                                        borderColor: '#272d4d',
+                                        backgroundColor: '#191e3d',
+                                        paddingX: 8,
+                                        paddingY: 1,
+                                    }}
+                                >
+                                    <h4>Não existem disciplinas registradas!</h4>
+                                </Stack>
+                            </Box>
                         )
                     }
                 </Grid>

@@ -19,7 +19,7 @@ export default function Header(){
                 </LinkCustom>
 
                 <LinkCustom to="/teachers/">
-                    Teacher
+                    Teachers
                 </LinkCustom>
             </Grid>
         </nav>

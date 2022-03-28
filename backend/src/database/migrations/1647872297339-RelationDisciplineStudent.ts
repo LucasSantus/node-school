@@ -22,7 +22,6 @@ export class RelationDisciplineStudent1647872297339 implements MigrationInterfac
                         referencedColumnNames: ["id"], 
                         referencedTableName: "disciplines", 
                         name: "fk_discipline_discipline", 
-                        onDelete: "RESTRICT", 
                         onUpdate: "CASCADE" 
                     },
                     { 
@@ -30,7 +29,6 @@ export class RelationDisciplineStudent1647872297339 implements MigrationInterfac
                         referencedColumnNames: ["id"], 
                         referencedTableName: "students", 
                         name: "fk_discipline_students", 
-                        onDelete: "RESTRICT", 
                         onUpdate: "CASCADE" 
                     },
                 ],

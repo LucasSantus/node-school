@@ -1,16 +1,17 @@
 import { useEffect, useState } from 'react';
 
-import { Box, Container, Grid, Button, Card, CardHeader, CardContent, TextField, Divider } from '@mui/material';
+import { Box, Container, Grid, Button, Card, CardHeader, CardContent, Divider } from '@mui/material';
 
 import { ApiService } from '../../services/ApiService';
 import { useNavigate } from 'react-router-dom';
+import { TextFieldCustom } from '../../ui/styles/components/TextField';
 
-interface StudentProps {
+interface TeacherProps {
     id?: string;
     type: string;
 }
 
-export const FormStudent: React.FC<StudentProps> = (props) => {
+export const FormTeacher: React.FC<TeacherProps> = (props) => {
     const [id, setId] = useState('');
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -36,9 +37,9 @@ export const FormStudent: React.FC<StudentProps> = (props) => {
         setEmail(event.target.value);
     };
 
-    function handleGetStudent(idStudent: string){
+    function handleGetStudent(idTeacher: string){
         ApiService
-            .get(`/students/${idStudent}`)
+            .get(`/teachers/${idTeacher}`)
             .then((response) => {
                 setId(response.data.id);
                 setFirstName(response.data.first_name);
@@ -46,21 +47,21 @@ export const FormStudent: React.FC<StudentProps> = (props) => {
                 setEmail(response.data.email); 
             })
             .catch((error) => {
-                console.log(`Ocorreu uma falha ao buscar a aluno\n ${error}`);
+                console.log(`Ocorreu uma falha ao buscar o professor\n ${error}`);
             });
     }
 
     function handleSubmit(){
         ApiService
-            .post("/students", {
+            .post("/teachers", {
                 "first_name": firstName,
                 "last_name": lastName,
                 "email": email
             })
             .catch((error) => {
-                console.log(`Ocorreu uma falha ao ${requisition} a aluno\n ${error}`);
+                console.log(`Ocorreu uma falha ao ${requisition} o professor\n ${error}`);
             });
-            navigate(`/students`);
+            navigate(`/teachers`);
     }
 
     function handleIsValid(){
@@ -83,7 +84,7 @@ export const FormStudent: React.FC<StudentProps> = (props) => {
     return (
         <Container>
             <Grid spacing={3}>
-                <Grid item xs={12} 
+                <Grid item xs={12}
                     sx={{
                         marginTop: 5
                     }}
@@ -99,7 +100,7 @@ export const FormStudent: React.FC<StudentProps> = (props) => {
                             sx={{
                                 color: 'white'
                             }}
-                            title={requisition + " " +"Aluno"} 
+                            title={requisition + " " +"Professor"} 
                         />
                         <Divider 
                             sx={{
@@ -117,7 +118,8 @@ export const FormStudent: React.FC<StudentProps> = (props) => {
                             >
                                 <Grid container spacing={2}>
                                     <Grid item xs={12}>
-                                        <TextField
+                                        <TextFieldCustom
+                                            color='secondary'
                                             required
                                             id="id_firstName"
                                             label="Nome"
@@ -126,11 +128,11 @@ export const FormStudent: React.FC<StudentProps> = (props) => {
                                             defaultValue={firstName}
                                             onChange={handleChangeFirstName}
                                             error={firstName === '' ? true : false}
-                                            helperText={firstName === '' ? 'Preencha o Nome' : ''}
+                                            helperText={!firstNameIsValid ? 'Preencha o Nome' : ''}
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <TextField
+                                        <TextFieldCustom
                                             required
                                             id="id_lastName"
                                             label="Sobrenome"
@@ -139,11 +141,11 @@ export const FormStudent: React.FC<StudentProps> = (props) => {
                                             defaultValue={lastName}
                                             onChange={handleChangeLastName}
                                             error={lastName === '' ? true : false}
-                                            helperText={lastName === '' ? 'Preencha o Sobrenome' : ''}
+                                            helperText={!lastNameIsValid ? 'Preencha o Sobrenome' : ''}
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
-                                        <TextField
+                                        <TextFieldCustom
                                             required
                                             id="id_email"
                                             label="E-mail"
@@ -152,7 +154,7 @@ export const FormStudent: React.FC<StudentProps> = (props) => {
                                             defaultValue={email}
                                             onChange={handleChangeEmail}
                                             error={email === '' ? true : false}
-                                            helperText={email === '' ? 'Preencha o E-mail' : ''}
+                                            helperText={!emailIsValid ? 'Preencha o E-mail' : ''}
                                         />
                                     </Grid>
                                     <Grid container justifyContent={'center'} spacing={3}>
@@ -168,7 +170,7 @@ export const FormStudent: React.FC<StudentProps> = (props) => {
                                                 }}
                                                 variant="contained"
                                                 onClick={() => {
-                                                    navigate(`/students`);
+                                                    navigate(`/teachers`);
                                                 }}
                                             >
                                                 Voltar

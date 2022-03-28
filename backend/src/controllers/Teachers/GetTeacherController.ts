@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { GetTeacherService } from "../../services/Teachers/GetTeacherService";
 
 export class GetTeacherController{
     async handle(request: Request, response: Response){

@@ -37,7 +37,6 @@ export class CreateDiscipline1647390591847 implements MigrationInterface {
                         referencedColumnNames: ["id"], 
                         referencedTableName: "teachers", 
                         name: "fk_discipline_teacher", 
-                        onDelete: "RESTRICT", 
                         onUpdate: "CASCADE" 
                     },
                 ],

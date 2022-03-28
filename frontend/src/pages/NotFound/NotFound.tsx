@@ -10,7 +10,7 @@ const NotFound: React.FC = (props) => {
                 sx={{
                     display: 'flex',
                     width: '100vh',
-                    height: '95vh',
+                    height: '80vh',
                     alignItems: 'center',
                     justifyContent: 'center'
                 }}

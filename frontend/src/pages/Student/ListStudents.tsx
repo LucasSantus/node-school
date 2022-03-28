@@ -1,174 +1,229 @@
-import { Container, Grid } from "@mui/material";
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Header from "../../components/Header/Header";
-import { ApiService } from "../../services/ApiService";
-import { STInterface } from "../../types/types";
+import { useState } from 'react';
 
-const ListStudents: React.FC = (props) => {
+import { Container, Typography, Grid, Card, CardContent, IconButton, Box, Divider, CardActions, AvatarGroup, Tooltip, Paper, Stack } from '@mui/material';
+
+import { useEffect } from "react";
+
+import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
+import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
+
+import { useNavigate } from "react-router-dom";
+import { STInterface } from '../../types/types';
+import Header from '../../components/Header/Header';
+
+import { ButtonCustom } from '../../ui/styles/components/Button';
+import { LinkTitleCardCustom } from '../../ui/styles/components/Link';
+import { ApiService } from '../../services/ApiService';
+
+export default function ListStudents(){
     const [students, setStudents] = useState<STInterface[]>([]);
-    const [exists, setExists] = useState(false);
 
     let navigate = useNavigate();
+ 
+    function handleFullName(firstName: string, lastName: string){
+        return `${firstName} ${lastName}`
+    }
 
-    function handleGetAllDisciplines(){
+    function handleGetAllStudents(){
         ApiService
             .get("/students")
             .then((response) => {
-                // setDisciplines(response.data);
-                if(students.length > 0) setExists(true);
+                setStudents(response.data);
             })
             .catch((error) => {
-                console.log(`Ocorreu uma falha ao buscar as disciplinas\n ${error}`);
+                console.log(`Ocorreu uma falha ao buscar os alunos\n ${error}`);
+            });
+    }
+
+    function handleModify(id: string){
+        navigate(`/students/modify/${id}`)
+    }
+
+    function handleDelete(id: string){
+        ApiService
+            .delete(`/students/${id}`)
+            .then(() => {
+                handleGetAllStudents();
+            })
+            .catch((error) => {
+                console.log(`Ocorreu uma falha ao deletar o aluno\n ${error}`);
             });
     }
 
     useEffect(() => {
-        handleGetAllDisciplines();
+        handleGetAllStudents();
     }, []);
-    
-    return (
-        <Container>
-            <Header />
-            <Grid
-                container 
-                spacing={3} 
-                paddingTop={5}
-                display={'flex'}
-                justifyContent={'center'}
-                alignItems={'center'}
-                height={'95vh'}
-            >
 
-                {/* {exists ?
+    return (
+        <>
+            <Header />
+
+            <Container>
+                <Grid
+                    container 
+                    spacing={3} 
+                    paddingTop={5}
+                >
                     <Grid container justifyContent="space-between" alignItems="center">
-                        <Grid item>
-                            <Typography variant="h4" component="h4">
-                                Disciplinas
-                            </Typography>
-                            <Typography variant="subtitle2">
-                                Estas são as disciplinas recentes
-                            </Typography>
-                        </Grid>
-                        <Grid item>
-                            <Button
-                                sx={{ 
-                                    mt: { xs: 2, md: 0 }, 
-                                    backgroundColor: '#7063C0',
-                                    '&:hover': {
-                                        background: '#6153bb' ,
-                                        opacity: 0.5
-                                    },
-                                }}
-                                variant="contained"
-                                onClick={() => {
-                                    navigate(`/disciplines/new/`);
-                                }}
-                            >
-                                Registrar Disciplina
-                            </Button>
-                        </Grid>
-                    </Grid>
-                :
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            width: '100vh',
-                            alignItems: 'center',
-                            justifyContent: 'center'
-                        }}
-                    >   
-                        <Stack
+                        <Grid 
+                            item
                             sx={{
-                                borderRadius: 6,
-                                border: 1,
-                                borderColor: '#272d4d',
-                                backgroundColor: '#191e3d',
-                                paddingX: 8,
-                                paddingY: 1,
+                                display: 'flex',
+                                flexDirection: 'column',
+                                justifyContent: 'flex-start',
                             }}
                         >
-                            <h3>No momento não existem disciplinas registradas</h3>
-                            <Grid
-                                alignItems="center"
-                                justifyContent="center"
+                            <Typography 
+                                variant="h4" 
+                                component="h4"
+                                sx={{
+                                    paddingLeft: 3,
+                                }}
                             >
-                                <Button
+                                Alunos
+                            </Typography>
+                        </Grid>
+                        <Grid item>
+                            <ButtonCustom
+                                variant="contained"
+                                sx={{
+                                    paddingLeft: 3
+                                }}
+                                onClick={() => {
+                                    navigate(`/students/new`);
+                                }}
+                            >
+                                Registrar Aluno
+                            </ButtonCustom>
+                        </Grid>
+                    </Grid>
+
+                    {students.length > 0 ? (
+                        students.map((item) => (
+                            <>
+                                <Grid item xs={12} md={4}>
+                                    <Paper 
+                                        elevation={3}
+                                        sx={{
+                                            height: '100%',
+                                            display: 'flex',
+                                            flexDirection: 'column'
+                                        }}
+                                    >
+                                        <Card
+                                            sx={{
+                                                backgroundColor: "#151c46",
+                                                border: '1px solid',
+                                                borderColor: '#48539b',
+                                                height: '100%',
+                                                display: 'flex',
+                                                flexDirection: 'column',
+                                                justifyContent: 'space-between'
+                                            }}
+                                        >
+                                            <CardContent
+                                                sx={{
+                                                    height: '100%'
+                                                }}
+                                            > 
+                                                <LinkTitleCardCustom 
+                                                    variant="h6" 
+                                                    color="text.primary" 
+                                                    underline="hover"
+                                                    onClick={() => {
+                                                        navigate(`/students/${item.id}`);
+                                                    }}
+                                                >
+                                                    {handleFullName(item.first_name, item.last_name)}
+                                                </LinkTitleCardCustom>
+                                            </CardContent>
+                                                <Divider 
+                                                    sx={{
+                                                        backgroundColor: '#48539b'
+                                                    }}
+                                                />
+                                                <CardActions
+                                                    sx={{
+                                                        alignItems: 'center',
+                                                        justifyContent: 'flex-end',
+                                                    }}
+                                                >
+                                                <Typography
+                                                    display="flex"
+                                                    alignItems="center"
+                                                    variant="subtitle2"
+                                                >
+                                                </Typography>
+                                                <AvatarGroup>
+                                                    <Tooltip arrow title="Editar Aluno">
+                                                        <IconButton
+                                                            sx={{
+                                                                '&:hover': {
+                                                                    background: '#070C27',
+                                                                    opacity: 0.5
+                                                                },
+                                                                color: 'green'
+                                                            }}
+                                                            color="inherit"
+                                                            size="small"
+                                                            onClick={() => {
+                                                                item.id ? handleModify(item.id) : console.log("Error")
+                                                            }}
+                                                        >
+                                                            <EditTwoToneIcon fontSize="small" />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                    <Tooltip arrow title="Deletar Aluno">
+                                                    <IconButton
+                                                        sx={{
+                                                            '&:hover': { 
+                                                                background: '#070C27',
+                                                                opacity: 0.5
+                                                            },
+                                                            color: 'red'
+                                                        }}
+                                                        color="inherit"
+                                                        size="small"
+                                                        onClick={() => {
+                                                            item.id ? handleDelete(item.id) : console.log("Error")
+                                                        }}
+                                                    >
+                                                        <DeleteTwoToneIcon fontSize="small" />
+                                                    </IconButton>
+                                                    </Tooltip>
+                                                </AvatarGroup>
+                                            </CardActions>
+                                        </Card>
+                                    </Paper>
+                                </Grid>
+                            </>
+                        ))) : (
+                            <Box
+                                sx={{
+                                    display: 'flex',
+                                    minWidth: '100%',
+                                    minHeight: '80vh',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}
+                            >
+                                <Stack
                                     sx={{
-                                        width: '300px',
-                                        backgroundColor: '#7063C0',
-                                        '&:hover': {
-                                            background: '#5849b8'
-                                        },
-                                    }}
-                                    variant="contained"
-                                    onClick={() => {
-                                        navigate(`/students/new/`);
+                                        borderRadius: 6,
+                                        border: 1,
+                                        borderColor: '#272d4d',
+                                        backgroundColor: '#191e3d',
+                                        paddingX: 8,
+                                        paddingY: 1,
                                     }}
                                 >
-                                    Registrar Disciplina
-                                </Button>
-                            </Grid>
-                        </Stack>
-                    </Box>
-                }
-
-                {disciplines.length > 0 ? (
-                    disciplines.map((item) => (
-                        <Grid container item xs={12} md={4} sx={{ borderColor: 'white' }}>
-                            <Grid container spacing={3}>
-                                <Card sx={{
-                                    width: '96%',
-                                    paddingTop: 1
-                                }}>
-                                
-                                    <CardContent>
-                                        <Typography sx={{ pb: 2 }} color="text.secondary">
-                                            {item.description}
-                                        </Typography>
-                                        <Grid container justifyContent="space-between" alignItems="center" sx={{gap: 1}}>
-                                            <Grid item></Grid>
-                                            <Grid item justifyContent="end">
-                                                <IconButton
-                                                    sx={{
-                                                        '&:hover': {
-                                                            background: '#070C27',
-                                                            opacity: 0.5
-                                                        },
-                                                        color: 'green'
-                                                    }}
-                                                    color="inherit"
-                                                    size="small"
-                                                >
-                                                    <EditTwoToneIcon fontSize="small" />
-                                                </IconButton>
-
-                                                <IconButton
-                                                    sx={{
-                                                        '&:hover': { 
-                                                            background: '#070C27',
-                                                            opacity: 0.5
-                                                        },
-                                                        color: 'red'
-                                                    }}
-                                                    color="inherit"
-                                                    size="small"
-                                                >
-                                                    <DeleteTwoToneIcon fontSize="small" />
-                                                </IconButton>
-                                            </Grid>
-                                        </Grid>
-                                    </CardContent>
-                                </Card >
-                            </Grid >
-                        </Grid >
-                    ))) : (
-                        <></>
-                    ) */}
-                {/* } */}
-            </Grid>
-        </Container>
+                                    <h4>Não existem alunos registrados!</h4>
+                                </Stack>
+                            </Box>
+                        )
+                    }
+                </Grid>
+            </Container>
+        </>
     );
 }
-
-export default ListStudents;
