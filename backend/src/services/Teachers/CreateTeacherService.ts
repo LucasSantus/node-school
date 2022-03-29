@@ -6,11 +6,10 @@ type TeacherRequest = {
     cpf: string;
     telefone: string;
     email: string;
-    birthDate: Date;
 }
 
 export class CreateTeacherService{
-    async execute({name, cpf, telefone, email, birthDate}:TeacherRequest): Promise<Teacher | Error>{
+    async execute({name, cpf, telefone, email}:TeacherRequest): Promise<Teacher | Error>{
         const repo = getRepository(Teacher);
 
         if(await repo.findOne({name})){
@@ -18,7 +17,7 @@ export class CreateTeacherService{
         }
 
         const teacher = repo.create({
-            name, cpf, telefone, email, birthDate
+            name, cpf, telefone, email
         });
 
         await repo.save(teacher);

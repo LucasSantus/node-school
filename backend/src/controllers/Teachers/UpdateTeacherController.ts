@@ -5,11 +5,11 @@ export class UpdateTeacherController{
     async handle(request: Request, response: Response){
         const { id } = request.params;
 
-        const { name, email } = request.body;
+        const { name, email, cpf, telefone } = request.body;
 
         const service = new UpdateTeacherService();
 
-        const result = await service.execute({id, name, email});
+        const result = await service.execute({id, name, email, cpf, telefone});
         
         if(result instanceof Error){
             return response.status(400).json(result.message);

@@ -8,9 +8,6 @@ export class BaseEntity{
     @CreateDateColumn()
     create_at: Date;
 
-    @CreateDateColumn()
-    update_at: Date;
-
     constructor(){
         if(!this.id){
             this.id = uuid()
@@ -27,7 +24,4 @@ export class BaseSTEntity extends BaseEntity{
 
     @Column()
     telefone: string;
-
-    @CreateDateColumn()
-    birthDate: Date;
 }

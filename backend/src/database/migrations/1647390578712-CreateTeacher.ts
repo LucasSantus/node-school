@@ -31,15 +31,6 @@ export class CreateTeachers1647390578712 implements MigrationInterface {
                         type: "varchar", 
                         isUnique: true
                     },
-                    {
-                        name: "birthDate", 
-                        type: "timestamp"
-                    },
-                    {
-                        name: "update_at", 
-                        type: "timestamp",
-                        isNullable: true
-                    },
                     { 
                         name: "create_at", 
                         type: "timestamp", 

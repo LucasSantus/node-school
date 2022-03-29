@@ -6,13 +6,18 @@ const routesStudent = Router();
 import { CreateStudentController } from "../controllers/Students/CreateStudentController";
 import { DeleteStudentController } from "../controllers/Students/DeleteStudentController";
 import { GetAllStudentsController } from "../controllers/Students/GetAllStudentsController";
+import { GetAllStudentsNameController } from "../controllers/Students/GetAllStudentsNameController";
 import { GetStudentController } from "../controllers/Students/GetStudentController";
 import { UpdateStudentController } from "../controllers/Students/UpdateStudentController";
 
 routesStudent.post("/", new CreateStudentController().handle);
 routesStudent.get("/", new GetAllStudentsController().handle);
 routesStudent.get("/:id", new GetStudentController().handle);
+routesStudent.get("/names", new GetAllStudentsNameController().handle);
 routesStudent.put("/:id", new UpdateStudentController().handle);
 routesStudent.delete("/:id", new DeleteStudentController().handle)
 
 export { routesStudent };
+
+
+

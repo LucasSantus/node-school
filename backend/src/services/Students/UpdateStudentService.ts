@@ -7,11 +7,10 @@ type StudentUpdateRequest = {
     cpf: string;
     telefone: string;
     email: string;
-    birthDate: Date;
 }
 
 export class UpdateStudentService{
-    async execute({id, name, cpf, telefone, email, birthDate}: StudentUpdateRequest){
+    async execute({id, name, cpf, telefone, email}: StudentUpdateRequest){
         const repo = getRepository(Student);
 
         const student = await repo.findOne(id);
@@ -24,7 +23,6 @@ export class UpdateStudentService{
         student.cpf = cpf ? cpf : student.cpf
         student.telefone = telefone ? telefone : student.telefone
         student.email = email ? email : student.email
-        student.birthDate = birthDate ? birthDate : student.birthDate
 
         await repo.save(student);
         return student;
