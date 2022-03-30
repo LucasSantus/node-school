@@ -36,7 +36,9 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
     const [description, setDescription] = useState('');
 
     const [teacherId, setTeacherId] = useState('');
-    const [studentsId, setStudentsId] = useState<String>('');
+    const [studentsId, setStudentsId] = useState<STInterface[]>([]);
+
+    const [studentsSelect, setStudentsSelect] = useState<STInterface[]>([]);
 
     const [requisition, setRequisition] = useState('Registrar');
 
@@ -77,8 +79,13 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
                 setTitle(response.data.title);
                 setDescription(response.data.description);
                 setTeacherId(response.data.teacher_id); 
-                setStudentsId(response.data.student_id);
-                console.log(response.data)
+                
+                const sa = response.data.students
+
+                for(let nameStudent in sa){
+                    console.log(nameStudent)
+                }
+                
             })
             .catch((error) => {
                 console.log(`Falha ao tentar recuperar a disciplina!\n Erro: ${error}`);
@@ -113,7 +120,7 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
                 "title": title,
                 "description": description,
                 "teacher_id": teacherId,
-                "student_id": studentsId
+                "student_id": personName
             })
             .catch((error) => {
                 console.log(`Ocorreu uma falha ao ${requisition} o professor\n ${error}`);
@@ -135,6 +142,8 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
             setRequisition("Alterar")
             props.id ? handleGetDiscipline(props.id) : console.log(`Falha ao tentar recuperar o id da disciplina!\n`) 
         }
+
+        console.log(studentsSelect)
     }, []);
 
     return (

@@ -29,8 +29,8 @@ export class CreateDisciplineService{
         const listStudents: Student[] = [];
 
         if(student_id){
-            for (let id of student_id) {
-                listStudents.push(await repoStudent.findOne(id));
+            for (let name of student_id) {
+                listStudents.push(await repoStudent.findOne({where:{name: name}}));
             }
         }
 
@@ -41,6 +41,8 @@ export class CreateDisciplineService{
         });
 
         discipline.students = listStudents
+
+        console.log(student_id)
 
         await repo.save(discipline);
 

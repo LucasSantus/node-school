@@ -13,11 +13,11 @@ export default function Header(){
                 </LinkCustom>
 
                 <LinkCustom to="/students/" sx={{ color: location.pathname === "/students/" ? '#6153BB': 'white'}}>
-                    Students
+                    Alunos
                 </LinkCustom>
 
                 <LinkCustom to="/teachers/" sx={{ color: location.pathname === "/teachers/" ? '#6153BB': 'white'}}>
-                    Teachers
+                    Professores
                 </LinkCustom>
             </Grid>
         </nav>
