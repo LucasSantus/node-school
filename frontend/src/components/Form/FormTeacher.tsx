@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 
-import { Box, Container, Grid, Button, Card, CardHeader, CardContent, TextField, Divider } from '@mui/material';
+import { Box, Container, Grid, Card, CardHeader, CardContent, TextField, Divider } from '@mui/material';
 
 import { ApiService } from '../../services/ApiService';
 import { useNavigate } from 'react-router-dom';
 import { ButtonCustom } from '../../ui/styles/components/Button';
+import { TextFieldCustom } from '../../ui/styles/components/TextField';
 
 interface TeacherProps {
     id?: string;
@@ -117,8 +118,7 @@ export const FormTeacher: React.FC<TeacherProps> = (props) => {
                                 <Grid container spacing={2}>
 
                                     <Grid item xs={12}>
-                                        <TextField
-                                            
+                                        <TextFieldCustom
                                             required
                                             id="id_name"
                                             label="Nome"
@@ -132,8 +132,7 @@ export const FormTeacher: React.FC<TeacherProps> = (props) => {
                                     </Grid>
 
                                     <Grid item xs={12}>
-                                        <TextField
-                                            
+                                        <TextFieldCustom
                                             required
                                             id="id_email"
                                             label="E-mail"
@@ -147,8 +146,7 @@ export const FormTeacher: React.FC<TeacherProps> = (props) => {
                                     </Grid>
 
                                     <Grid item xs={12}>
-                                        <TextField
-                                            
+                                        <TextFieldCustom
                                             required
                                             id="id_cpf"
                                             label="Cpf"
@@ -162,8 +160,7 @@ export const FormTeacher: React.FC<TeacherProps> = (props) => {
                                     </Grid>
 
                                     <Grid item xs={12}>
-                                        <TextField
-                                            
+                                        <TextFieldCustom
                                             required
                                             id="id_phone"
                                             label="Celular"
