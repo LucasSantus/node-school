@@ -22,7 +22,7 @@ export class CreateTeachers1647390578712 implements MigrationInterface {
                         isUnique: true
                     },
                     {
-                        name: "telefone", 
+                        name: "phone", 
                         type: "varchar", 
                         isUnique: true
                     },

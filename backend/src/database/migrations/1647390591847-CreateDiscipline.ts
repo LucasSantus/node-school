@@ -26,10 +26,6 @@ export class CreateDiscipline1647390591847 implements MigrationInterface {
                         isNullable: true
                     },
                     { 
-                        name: "update_at", 
-                        type: "timestamp"
-                    },
-                    { 
                         name: "create_at", 
                         type: "timestamp", 
                         default: "now()" 

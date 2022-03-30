@@ -3,11 +3,11 @@ import { CreateTeacherService } from "../../services/Teachers/CreateTeacherServi
 
 export class CreateTeacherController{
     async handle(request: Request, response: Response){
-        const { name, email, cpf, telefone } = request.body;
+        const { name, email, cpf, phone } = request.body;
 
         const service = new CreateTeacherService();
 
-        const result = await service.execute({name, email, cpf, telefone});
+        const result = await service.execute({name, email, cpf, phone});
         
         if(result instanceof Error){
             return response.status(400).json(result.message);

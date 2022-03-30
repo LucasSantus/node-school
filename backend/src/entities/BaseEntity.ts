@@ -23,5 +23,5 @@ export class BaseSTEntity extends BaseEntity{
     email: string;
 
     @Column()
-    telefone: string;
+    phone: string;
 }

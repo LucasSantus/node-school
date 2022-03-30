@@ -4,6 +4,7 @@ import { Box, Container, Grid, Button, Card, CardHeader, CardContent, TextField,
 
 import { ApiService } from '../../services/ApiService';
 import { useNavigate } from 'react-router-dom';
+import { ButtonCustom } from '../../ui/styles/components/Button';
 
 interface StudentProps {
     id?: string;
@@ -12,28 +13,29 @@ interface StudentProps {
 
 export const FormStudent: React.FC<StudentProps> = (props) => {
     const [id, setId] = useState('');
-    const [firstName, setFirstName] = useState('');
-    const [lastName, setLastName] = useState('');
+    const [name, setName] = useState('');
     const [email, setEmail] = useState('');
-
-    const [firstNameIsValid, setFirstNameIsValid] = useState(false);
-    const [lastNameIsValid, setLastNameIsValid] = useState(false);
-    const [emailIsValid, setEmailIsValid] = useState(false);
+    const [cpf, setCpf] = useState('');
+    const [phone, setPhone] = useState('');
 
     const [requisition, setRequisition] = useState('Registrar');
 
     let navigate = useNavigate();
     
-    const handleChangeFirstName = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setFirstName(event.target.value);
-    };
-
-    const handleChangeLastName = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setLastName(event.target.value);
+    const handleChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setName(event.target.value);
     };
 
     const handleChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
         setEmail(event.target.value);
+    };
+
+    const handleChangeCpf = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setCpf(event.target.value);
+    };
+
+    const handleChangePhone = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setPhone(event.target.value);
     };
 
     function handleGetStudent(idStudent: string){
@@ -41,34 +43,32 @@ export const FormStudent: React.FC<StudentProps> = (props) => {
             .get(`/students/${idStudent}`)
             .then((response) => {
                 setId(response.data.id);
-                setFirstName(response.data.first_name);
-                setLastName(response.data.last_name);
+                setName(response.data.name);
                 setEmail(response.data.email); 
+                setCpf(response.data.cpf);
+                setPhone(response.data.phone);
             })
             .catch((error) => {
-                console.log(`Ocorreu uma falha ao buscar a aluno\n ${error}`);
+                console.log(`Falha ao tentar recuperar o aluno!\n Erro: ${error}`);
             });
     }
 
     function handleSubmit(){
         ApiService
             .post("/students", {
-                "first_name": firstName,
-                "last_name": lastName,
-                "email": email
+                "name": name,
+                "email": email,
+                "cpf": cpf,
+                "phone": phone,            
             })
             .catch((error) => {
-                console.log(`Ocorreu uma falha ao ${requisition} a aluno\n ${error}`);
+                console.log(`Falha ao tentar ${requisition} o aluno!\n Erro: ${error}`);
             });
-            navigate(`/students`);
+            navigate(`/students/`);
     }
 
     function handleIsValid(){
-        firstName === "" ? setFirstNameIsValid(false) : setFirstNameIsValid(true);
-        lastName === "" ? setLastNameIsValid(false) : setLastNameIsValid(true);
-        email === "" ? setEmailIsValid(false) : setEmailIsValid(true);
-
-        if( firstNameIsValid && lastNameIsValid && emailIsValid ){
+        if( name != "" && email != "" && cpf != "" && phone != "" ){
             handleSubmit();
         }
     }
@@ -76,18 +76,14 @@ export const FormStudent: React.FC<StudentProps> = (props) => {
     useEffect(() => {
         if(props.type === 'modify'){
             setRequisition("Alterar")
-            props.id ? handleGetStudent(props.id) : console.log("não foi possível recuperar o aluno!") 
+            props.id ? handleGetStudent(props.id) : console.log("Falha ao tentar recuperar o id do aluno!\n") 
         }
     }, []);
 
     return (
         <Container>
             <Grid spacing={3}>
-                <Grid item xs={12} 
-                    sx={{
-                        marginTop: 5
-                    }}
-                >
+                <Grid item xs={12}  sx={{ marginTop: 5 }} >
                     <Card
                         sx={{
                             backgroundColor: '#151C46',
@@ -95,55 +91,31 @@ export const FormStudent: React.FC<StudentProps> = (props) => {
                             borderColor: '#48539b',
                         }}    
                     >
-                        <CardHeader 
-                            sx={{
-                                color: 'white'
-                            }}
-                            title={requisition + " " +"Aluno"} 
-                        />
-                        <Divider 
-                            sx={{
-                                borderColor: '#48539b',
-                            }}
-                        />
+                        <CardHeader sx={{ color: 'white' }} title={requisition + " " +"Aluno"} />
+
+                        <Divider sx={{ borderColor: '#48539b' }} />
                         <CardContent>
-                            <Box
-                                component="form"
-                                sx={{
-                                    '& .MuiTextField-root': { m: 1, width: '25ch' },
-                                }}
-                                noValidate
-                                autoComplete="off"
-                            >
+                            <Box component="form" sx={{ '& .MuiTextField-root': { m: 1, width: '25ch' }}} noValidate autoComplete="off" >
                                 <Grid container spacing={2}>
+
                                     <Grid item xs={12}>
                                         <TextField
+                                            fullWidth
                                             required
-                                            id="id_firstName"
+                                            id="id_name"
                                             label="Nome"
                                             type="text"
-                                            value={firstName}
-                                            defaultValue={firstName}
-                                            onChange={handleChangeFirstName}
-                                            error={firstName === '' ? true : false}
-                                            helperText={firstName === '' ? 'Preencha o Nome' : ''}
+                                            value={name}
+                                            defaultValue={name}
+                                            onChange={handleChangeName}
+                                            error={name === '' ? true : false}
+                                            helperText={name === '' ? 'Preencha o Nome' : ''}
                                         />
                                     </Grid>
+
                                     <Grid item xs={12}>
                                         <TextField
-                                            required
-                                            id="id_lastName"
-                                            label="Sobrenome"
-                                            type="text"
-                                            value={lastName}
-                                            defaultValue={lastName}
-                                            onChange={handleChangeLastName}
-                                            error={lastName === '' ? true : false}
-                                            helperText={lastName === '' ? 'Preencha o Sobrenome' : ''}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={12}>
-                                        <TextField
+                                            fullWidth
                                             required
                                             id="id_email"
                                             label="E-mail"
@@ -155,43 +127,69 @@ export const FormStudent: React.FC<StudentProps> = (props) => {
                                             helperText={email === '' ? 'Preencha o E-mail' : ''}
                                         />
                                     </Grid>
+
+                                    <Grid item xs={12}>
+                                        <TextField
+                                            fullWidth
+                                            required
+                                            id="id_cpf"
+                                            label="Cpf"
+                                            type="text"
+                                            value={cpf}
+                                            defaultValue={cpf}
+                                            onChange={handleChangeCpf}
+                                            error={cpf === '' ? true : false}
+                                            helperText={cpf === '' ? 'Preencha o Cpf' : ''}
+                                        />
+                                    </Grid>
+
+                                    <Grid item xs={12}>
+                                        <TextField
+                                            fullWidth
+                                            required
+                                            id="id_phone"
+                                            label="Celular"
+                                            type="phone"
+                                            value={phone}
+                                            defaultValue={phone}
+                                            onChange={handleChangePhone}
+                                            error={phone === '' ? true : false}
+                                            helperText={phone === '' ? 'Preencha o Celular' : ''}
+                                        />
+                                    </Grid>
                                     <Grid container justifyContent={'center'} spacing={3}>
                                         <Grid item>
-                                            <Button
-                                                sx={{ 
-                                                    mt: { xs: 2, md: 0 }, 
+                                            <ButtonCustom variant="contained"
+                                                sx={{
                                                     backgroundColor: '#7063C0',
                                                     '&:hover': {
                                                         background: '#6153bb' ,
                                                         opacity: 0.5
                                                     },
                                                 }}
-                                                variant="contained"
                                                 onClick={() => {
                                                     navigate(`/students`);
                                                 }}
                                             >
                                                 Voltar
-                                            </Button>
+                                            </ButtonCustom>
                                         </Grid>
                                     
                                         <Grid item>
-                                            <Button
-                                                sx={{ 
-                                                    // mt: { xs: 2, md: 0 }, 
+                                            <ButtonCustom variant="contained"
+                                                sx={{
                                                     backgroundColor: '#7063C0',
                                                     '&:hover': {
                                                         background: '#6153bb' ,
                                                         opacity: 0.5
                                                     },
                                                 }}
-                                                variant="contained"
                                                 onClick={() => {
                                                     handleIsValid()
                                                 }}
                                             >
                                                 {requisition}
-                                            </Button>
+                                            </ButtonCustom>
                                         </Grid>
                                     </Grid>            
                                 </Grid>

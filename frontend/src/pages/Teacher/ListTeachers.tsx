@@ -8,11 +8,14 @@ import EditTwoToneIcon from '@mui/icons-material/EditTwoTone';
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 
 import { useNavigate } from "react-router-dom";
+
 import { STInterface } from '../../types/types';
+
 import Header from '../../components/Header/Header';
 
 import { ButtonCustom } from '../../ui/styles/components/Button';
 import { LinkTitleCardCustom } from '../../ui/styles/components/Link';
+
 import { ApiService } from '../../services/ApiService';
 
 export default function ListTeachers(){
@@ -20,10 +23,6 @@ export default function ListTeachers(){
 
     let navigate = useNavigate();
  
-    function handleFullName(firstName: string, lastName: string){
-        return `${firstName} ${lastName}`
-    }
-
     function handleGetAllTeachers(){
         ApiService
             .get("/teachers")
@@ -31,7 +30,7 @@ export default function ListTeachers(){
                 setTeachers(response.data);
             })
             .catch((error) => {
-                console.log(`Ocorreu uma falha ao buscar os professores\n ${error}`);
+                console.log(`Falha ao tentar recuperar os professores!\n Erro: \n ${error}`);
             });
     }
 
@@ -46,7 +45,7 @@ export default function ListTeachers(){
                 handleGetAllTeachers();
             })
             .catch((error) => {
-                console.log(`Ocorreu uma falha ao deletar o professor\n ${error}`);
+                console.log(`Falha ao tentar deletar o professor!\n Erro: ${error}`);
             });
     }
 
@@ -59,36 +58,21 @@ export default function ListTeachers(){
             <Header />
 
             <Container>
-                <Grid
-                    container 
-                    spacing={3} 
-                    paddingTop={5}
-                >
+                <Grid container spacing={3} paddingTop={5}>
                     <Grid container justifyContent="space-between" alignItems="center">
-                        <Grid 
-                            item
+                        <Grid item
                             sx={{
                                 display: 'flex',
                                 flexDirection: 'column',
                                 justifyContent: 'flex-start',
                             }}
                         >
-                            <Typography 
-                                variant="h4" 
-                                component="h4"
-                                sx={{
-                                    paddingLeft: 3,
-                                }}
-                            >
+                            <Typography  variant="h4" component="h4" sx={{ marginLeft: 3 }} >
                                 Professores
                             </Typography>
                         </Grid>
                         <Grid item>
-                            <ButtonCustom
-                                variant="contained"
-                                sx={{
-                                    paddingLeft: 3
-                                }}
+                            <ButtonCustom variant="contained" sx={{ marginLeft: 3}}
                                 onClick={() => {
                                     navigate(`/teachers/new`);
                                 }}
@@ -102,8 +86,7 @@ export default function ListTeachers(){
                         teachers.map((item) => (
                             <>
                                 <Grid item xs={12} md={4}>
-                                    <Paper 
-                                        elevation={3}
+                                    <Paper elevation={3}
                                         sx={{
                                             height: '100%',
                                             display: 'flex',
@@ -121,42 +104,24 @@ export default function ListTeachers(){
                                                 justifyContent: 'space-between'
                                             }}
                                         >
-                                            <CardContent
-                                                sx={{
-                                                    height: '100%'
-                                                }}
-                                            > 
-                                                <LinkTitleCardCustom 
-                                                    variant="h6" 
-                                                    color="text.primary" 
-                                                    underline="hover"
+                                            <CardContent sx={{ height: '100%' }} > 
+                                                <LinkTitleCardCustom variant="h6" color="text.primary" underline="hover"
                                                     onClick={() => {
                                                         navigate(`/teachers/${item.id}`);
                                                     }}
                                                 >
-                                                    {handleFullName(item.first_name, item.last_name)}
+                                                    {item.name}
                                                 </LinkTitleCardCustom>
                                             </CardContent>
-                                                <Divider 
-                                                    sx={{
-                                                        backgroundColor: '#48539b'
-                                                    }}
-                                                />
-                                                <CardActions
-                                                    sx={{
-                                                        alignItems: 'center',
-                                                        justifyContent: 'flex-end',
-                                                    }}
-                                                >
-                                                <Typography
-                                                    display="flex"
-                                                    alignItems="center"
-                                                    variant="subtitle2"
-                                                >
-                                                </Typography>
+                                                <Divider sx={{ backgroundColor: '#48539b' }} />
+
+                                                <CardActions sx={{ alignItems: 'center', justifyContent: 'flex-end' }} >
+
+                                                <Typography display="flex" alignItems="center" variant="subtitle2" ></Typography>
+
                                                 <AvatarGroup>
-                                                    <Tooltip arrow title="Editar Aluno">
-                                                        <IconButton
+                                                    <Tooltip arrow title="Editar Professor">
+                                                        <IconButton color="inherit" size="small"
                                                             sx={{
                                                                 '&:hover': {
                                                                     background: '#070C27',
@@ -164,32 +129,28 @@ export default function ListTeachers(){
                                                                 },
                                                                 color: 'green'
                                                             }}
-                                                            color="inherit"
-                                                            size="small"
                                                             onClick={() => {
-                                                                item.id ? handleModify(item.id) : console.log("Error")
+                                                                item.id ? handleModify(item.id) : console.log("Falha ao tentar chamar função de modificar professor!")
                                                             }}
                                                         >
                                                             <EditTwoToneIcon fontSize="small" />
                                                         </IconButton>
                                                     </Tooltip>
-                                                    <Tooltip arrow title="Deletar Aluno">
-                                                    <IconButton
-                                                        sx={{
-                                                            '&:hover': { 
-                                                                background: '#070C27',
-                                                                opacity: 0.5
-                                                            },
-                                                            color: 'red'
-                                                        }}
-                                                        color="inherit"
-                                                        size="small"
-                                                        onClick={() => {
-                                                            item.id ? handleDelete(item.id) : console.log("Error")
-                                                        }}
-                                                    >
-                                                        <DeleteTwoToneIcon fontSize="small" />
-                                                    </IconButton>
+                                                    <Tooltip arrow title="Deletar Professor">
+                                                        <IconButton color="inherit" size="small"
+                                                            sx={{
+                                                                '&:hover': { 
+                                                                    background: '#070C27',
+                                                                    opacity: 0.5
+                                                                },
+                                                                color: 'red'
+                                                            }}
+                                                            onClick={() => {
+                                                                item.id ? handleDelete(item.id) : console.log("Falha ao tentar chamar função de deletar professor!")
+                                                            }}
+                                                        >
+                                                            <DeleteTwoToneIcon fontSize="small" />
+                                                        </IconButton>
                                                     </Tooltip>
                                                 </AvatarGroup>
                                             </CardActions>
@@ -201,6 +162,7 @@ export default function ListTeachers(){
                             <Box
                                 sx={{
                                     display: 'flex',
+                                    flexDirection: 'column',
                                     minWidth: '100%',
                                     minHeight: '80vh',
                                     alignItems: 'center',
@@ -217,7 +179,7 @@ export default function ListTeachers(){
                                         paddingY: 1,
                                     }}
                                 >
-                                    <h4>Não existem professores registrados!</h4>
+                                    <h4>Não há professores registrados no sistema!</h4>
                                 </Stack>
                             </Box>
                         )

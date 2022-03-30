@@ -31,8 +31,6 @@ const MenuProps = {
 };
 
 export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
-    let navigate = useNavigate();
-
     const [id, setId] = useState('');
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
@@ -40,16 +38,12 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
     const [teacherId, setTeacherId] = useState('');
     const [studentsId, setStudentsId] = useState<String>('');
 
-    const [titleIsValid, setTitleIsValid] = useState(false);
-    const [descriptionIsValid, setDescriptionIsValid] = useState(false);
-    const [teacherIdIsValid, setTeacherIdIsValid] = useState(false);
+    const [requisition, setRequisition] = useState('Registrar');
+
+    let navigate = useNavigate();
 
     const [teachers, setTeachers] = useState<STInterface[]>([]);
     const [students, setStudents] = useState<STInterface[]>([]);
-
-    const [selectStudents, setSelectStudents] = useState<string[]>([]);
-
-    const [requisition, setRequisition] = useState('Registrar');
 
     const [personName, setPersonName] = React.useState<string[]>([]);
   
@@ -65,26 +59,16 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
         setTeacherId(event.target.value);
     };
 
-    const handleChange = (event: SelectChangeEvent<typeof personName>) => {
+    const handleChangeStudents = (event: SelectChangeEvent<typeof personName>) => {
         const {
             target: { value },
         } = event;
+
         setPersonName(
             typeof value === 'string' ? value.split(',') : value,
         );
     };
     
-    function handleGetAllStudents(){
-        ApiService
-            .get("/students")
-            .then((response) => {
-                setStudents(response.data);
-            })
-            .catch((error) => {
-                console.log(`Ocorreu uma falha ao buscar os alunos\n ${error}`);
-            });
-    }
-
     function handleGetDiscipline(idDiscipline: string){
         ApiService
             .get(`/disciplines/${idDiscipline}`)
@@ -94,9 +78,10 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
                 setDescription(response.data.description);
                 setTeacherId(response.data.teacher_id); 
                 setStudentsId(response.data.student_id);
+                console.log(response.data)
             })
             .catch((error) => {
-                console.log(`Ocorreu uma falha ao buscar a disciplina\n ${error}`);
+                console.log(`Falha ao tentar recuperar a disciplina!\n Erro: ${error}`);
             });
     }
     
@@ -107,7 +92,18 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
                 setTeachers(response.data);
             })
             .catch((error) => {
-                console.log(`Ocorreu uma falha ao buscar os professores\n ${error}`);
+                console.log(`Falha ao tentar recuperar os professores!\n Erro: ${error}`);
+            });
+    }
+
+    function handleGetAllStudents(){
+        ApiService
+            .get("/students")
+            .then((response) => {
+                setStudents(response.data);
+            })
+            .catch((error) => {
+                console.log(`Falha ao tentar recuperar os alunos!\n Erro: ${error}`);
             });
     }
 
@@ -122,22 +118,13 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
             .catch((error) => {
                 console.log(`Ocorreu uma falha ao ${requisition} o professor\n ${error}`);
             });
-            navigate(`/disciplines`);
+            navigate(`/`);
     }
 
     function handleIsValid(){
-        title === "" ? setTitleIsValid(false) : setTitleIsValid(true);
-        description === "" ? setDescriptionIsValid(false) : setDescriptionIsValid(true);
-        teacherId === "" ? setTeacherIdIsValid(false) : setTeacherIdIsValid(true);
-        // studentsId === "" ? setStudentsIdIsValid(false) : setStudentsIdIsValid(true);
-
-        // if( titleIsValid && descriptionIsValid && teacherIdIsValid ){
-        //     handleSubmit();
-        // }
-    }
-
-    function handleFullName(first_name: string, last_name: string){
-        return `${first_name} ${last_name}`
+        if( title != "" && description != "" && teacherId != ""){
+            handleSubmit();
+        }
     }
 
     useEffect(() => {
@@ -146,18 +133,14 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
 
         if(props.type === 'modify'){
             setRequisition("Alterar")
-            props.id ? handleGetDiscipline(props.id) : console.log("não foi possível recuperar a disciplina!") 
+            props.id ? handleGetDiscipline(props.id) : console.log(`Falha ao tentar recuperar o id da disciplina!\n`) 
         }
     }, []);
 
     return (
         <Container>
             <Grid spacing={3}>
-                <Grid item xs={12} 
-                    sx={{
-                        marginTop: 5
-                    }}
-                >
+                <Grid item xs={12} sx={{ marginTop: 5 }} >
                     <Card
                         sx={{
                             backgroundColor: '#151C46',
@@ -165,29 +148,18 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
                             borderColor: '#48539b',
                         }}    
                     >
-                        <CardHeader 
-                            sx={{
-                                color: 'white'
-                            }}
-                            title={requisition + " " +"Disciplina"} 
-                        />
-                        <Divider 
-                            sx={{
-                                borderColor: '#48539b',
-                            }}
-                        />
+                        <CardHeader title={requisition + " " +"Disciplina"} sx={{ color: 'white' }} />
+                        <Divider sx={{ borderColor: '#48539b' }} />
                         <CardContent>
-                            <Box
-                                component="form"
+                            <Box component="form" noValidate autoComplete="off"
                                 sx={{
                                     '& .MuiTextField-root': { m: 1, width: '25ch' },
                                 }}
-                                noValidate
-                                autoComplete="off"
                             >
                                 <Grid container spacing={2}>
                                     <Grid item xs={12}>
                                         <TextFieldCustom
+                                            fullWidth
                                             required
                                             id="id_title"
                                             label="Título"
@@ -199,8 +171,10 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
                                             helperText={title === '' ? 'Preencha o Título' : ''}
                                         />
                                     </Grid>
+
                                     <Grid item xs={12}>
                                         <TextFieldCustom
+                                            fullWidth
                                             required
                                             multiline
                                             maxRows={6}
@@ -214,24 +188,27 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
                                             helperText={description === '' ? 'Preencha o Descrição' : ''}
                                         />
                                     </Grid>
+
                                     <Grid item xs={12}>
                                         <TextFieldCustom
-                                            id="outlined-select-currency"
+                                            fullWidth
+                                            id="id_teacher"
                                             select
                                             label="Professor"
+                                            value={teacherId}
                                             onChange={handleChangeTeacherId}
+                                            error={teacherId === '' ? true : false}
+                                            helperText={teacherId === '' ? 'Selecione o Professor' : ''}
                                         >
                                             {teachers.map((item) => (
                                                 <MenuItem key={item.id} value={item.id}>
-                                                    {item.first_name} {item.last_name}
+                                                    {item.name} {item.cpf}
                                                 </MenuItem>
                                             ))}
                                         </TextFieldCustom>
                                     </Grid>
 
                                     <Grid item xs={12}>
-
-
                                         <FormControl sx={{ m: 1, width: '100%' }}>
                                             <InputLabel id="demo-multiple-chip-label">Chip</InputLabel>
                                             <Select
@@ -239,7 +216,7 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
                                                 id="demo-multiple-chip"
                                                 multiple
                                                 value={personName}
-                                                onChange={handleChange}
+                                                onChange={handleChangeStudents}
                                                 input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
                                                 renderValue={(selected) => (
                                                     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
@@ -251,18 +228,14 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
                                                 MenuProps={MenuProps}
                                             >
                                             {students.map((item) => (
-                                                <MenuItem
-                                                    key={item.id}
-                                                    value={item.id}
-                                                >
-                                                    {item.first_name}
+                                                <MenuItem key={item.id} value={item.name} >
+                                                    {item.name}
                                                 </MenuItem>
                                             ))}
                                             </Select>
                                         </FormControl>
-
-
                                     </Grid>
+
                                     <Grid container justifyContent={'center'} spacing={3}>
                                         <Grid item>
                                             <Button
@@ -276,7 +249,7 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
                                                 }}
                                                 variant="contained"
                                                 onClick={() => {
-                                                    navigate(`/teachers`);
+                                                    navigate(`/`);
                                                 }}
                                             >
                                                 Voltar
@@ -285,8 +258,7 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
                                     
                                         <Grid item>
                                             <Button
-                                                sx={{ 
-                                                    // mt: { xs: 2, md: 0 }, 
+                                                sx={{
                                                     backgroundColor: '#7063C0',
                                                     '&:hover': {
                                                         background: '#6153bb' ,

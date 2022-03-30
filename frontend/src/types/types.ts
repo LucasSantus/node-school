@@ -1,9 +1,10 @@
 
 export interface STInterface {
     id?: string;
-    first_name: string;
-    last_name: string;
+    name: string;
+    cpf: string;
     email: string;
+    phone: string;
     create_at?: string;
 }
 

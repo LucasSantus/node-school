@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { Container, Typography, Grid, Button, Card, CardContent, IconButton, Link, Box, Chip, Divider, CardActions, AvatarGroup, Tooltip, Avatar, Paper, useMediaQuery, Stack } from '@mui/material';
+import { Container, Typography, Grid, Card, CardContent, IconButton, Box, Divider, CardActions, AvatarGroup, Tooltip, Paper, Stack } from '@mui/material';
 
 import { ApiService } from "../services/ApiService";
 
@@ -24,7 +24,7 @@ export default function Dashboard(){
     let navigate = useNavigate();
 
     function handleLimitText(text: string){
-        return text.slice(0, 100).concat('...');
+        return text.slice(0, 130).concat('...');
     }
     
     function handleGetAllDisciplines(){
@@ -38,6 +38,21 @@ export default function Dashboard(){
             });
     }
 
+    function handleModify(id: string){
+        navigate(`/disciplines/modify/${id}`)
+    }
+
+    function handleDelete(id: string){
+        ApiService
+            .delete(`/disciplines/${id}`)
+            .then(() => {
+                handleGetAllDisciplines();
+            })
+            .catch((error) => {
+                console.log(`Falha ao tentar deletar o aluno!\n Erro: ${error}`);
+            });
+    }
+
     useEffect(() => {
         handleGetAllDisciplines();
     }, []);
@@ -47,36 +62,21 @@ export default function Dashboard(){
             <Header />
 
             <Container>
-                <Grid
-                    container 
-                    spacing={3} 
-                    paddingTop={5}
-                >
+                <Grid container spacing={3} paddingTop={5} >
                     <Grid container justifyContent="space-between" alignItems="center">
-                        <Grid 
-                            item
+                        <Grid item
                             sx={{
                                 display: 'flex',
                                 flexDirection: 'column',
                                 justifyContent: 'flex-start',
                             }}
                         >
-                            <Typography 
-                                variant="h4" 
-                                component="h4"
-                                sx={{
-                                    paddingLeft: 3,
-                                }}
-                            >
+                            <Typography variant="h4" component="h4" sx={{ marginLeft: 3 }} >
                                 Disciplinas
                             </Typography>
                         </Grid>
                         <Grid item>
-                            <ButtonCustom
-                                variant="contained"
-                                sx={{
-                                    paddingLeft: 3
-                                }}
+                            <ButtonCustom variant="contained" sx={{ marginLeft: 3 }}
                                 onClick={() => {
                                     navigate(`/disciplines/new/`);
                                 }}
@@ -90,8 +90,7 @@ export default function Dashboard(){
                         disciplines.map((item) => (
                             <>
                                 <Grid item xs={12} md={4}>
-                                    <Paper 
-                                        elevation={3}
+                                    <Paper elevation={3}
                                         sx={{
                                             height: '100%',
                                             display: 'flex',
@@ -109,49 +108,29 @@ export default function Dashboard(){
                                                 justifyContent: 'space-between'
                                             }}
                                         >
-                                            <CardContent
-                                                sx={{
-                                                    height: '100%'
-                                                }}
-                                            > 
-                                                <LinkTitleCardCustom 
-                                                    variant="h6" 
-                                                    color="text.primary" 
-                                                    underline="hover"
+                                            <CardContent sx={{ height: '100%' }} > 
+                                                <LinkTitleCardCustom variant="h6" color="text.primary" underline="hover"
                                                     onClick={() => {
                                                         navigate(`/disciplines/${item.id}`);
                                                     }}
                                                 >
                                                     {item.title}
                                                 </LinkTitleCardCustom>
-                                                <Tooltip
-                                                    title={item.description}
-                                                >
+                                                <Tooltip title={item.description} >
                                                     <Typography sx={{ pb: 2, color: '#9395A2' }}>
                                                         {handleLimitText(item.description)}
                                                     </Typography>
                                                 </Tooltip>
                                             </CardContent>
-                                                <Divider 
-                                                    sx={{
-                                                        backgroundColor: '#48539b'
-                                                    }}
-                                                />
-                                                <CardActions
-                                                    sx={{
-                                                        alignItems: 'center',
-                                                        justifyContent: 'flex-end',
-                                                    }}
-                                                >
-                                                <Typography
-                                                    display="flex"
-                                                    alignItems="center"
-                                                    variant="subtitle2"
-                                                >
-                                                </Typography>
+                                                <Divider sx={{ backgroundColor: '#48539b' }} />
+
+                                                <CardActions sx={{ alignItems: 'center', justifyContent: 'flex-end' }} >
+
+                                                <Typography display="flex" alignItems="center" variant="subtitle2"></Typography>
+
                                                 <AvatarGroup>
-                                                    <Tooltip arrow title="Editar Disciplina">
-                                                        <IconButton
+                                                <Tooltip arrow title="Editar Disciplina">
+                                                        <IconButton color="inherit" size="small"
                                                             sx={{
                                                                 '&:hover': {
                                                                     background: '#070C27',
@@ -159,26 +138,28 @@ export default function Dashboard(){
                                                                 },
                                                                 color: 'green'
                                                             }}
-                                                            color="inherit"
-                                                            size="small"
+                                                            onClick={() => {
+                                                                item.id ? handleModify(item.id) : console.log("Falha ao tentar chamar função de modificar disciplina!")
+                                                            }}
                                                         >
                                                             <EditTwoToneIcon fontSize="small" />
                                                         </IconButton>
                                                     </Tooltip>
                                                     <Tooltip arrow title="Deletar Disciplina">
-                                                    <IconButton
-                                                        sx={{
-                                                            '&:hover': { 
-                                                                background: '#070C27',
-                                                                opacity: 0.5
-                                                            },
-                                                            color: 'red'
-                                                        }}
-                                                        color="inherit"
-                                                        size="small"
-                                                    >
-                                                        <DeleteTwoToneIcon fontSize="small" />
-                                                    </IconButton>
+                                                        <IconButton color="inherit" size="small"
+                                                            sx={{
+                                                                '&:hover': { 
+                                                                    background: '#070C27',
+                                                                    opacity: 0.5
+                                                                },
+                                                                color: 'red'
+                                                            }}
+                                                            onClick={() => {
+                                                                item.id ? handleDelete(item.id) : console.log("Falha ao tentar chamar função de deletar disciplina!")
+                                                            }}
+                                                        >
+                                                            <DeleteTwoToneIcon fontSize="small" />
+                                                        </IconButton>
                                                     </Tooltip>
                                                 </AvatarGroup>
                                             </CardActions>
@@ -206,7 +187,7 @@ export default function Dashboard(){
                                         paddingY: 1,
                                     }}
                                 >
-                                    <h4>Não existem disciplinas registradas!</h4>
+                                    <h4>Não há disciplinas registradas no sistema!</h4>
                                 </Stack>
                             </Box>
                         )
