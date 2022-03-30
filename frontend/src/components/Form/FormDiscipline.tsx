@@ -5,7 +5,7 @@ import { Box, Container, Grid, Button, Card, CardHeader, CardContent, Divider, M
 import { ApiService } from '../../services/ApiService';
 import { useNavigate } from 'react-router-dom';
 import { TextFieldCustom } from '../../ui/styles/components/TextField';
-import { STInterface } from '../../types/types';
+import { DisciplineInterface, STInterface } from '../../types/types';
 
 import * as React from 'react';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -13,6 +13,7 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
+import { convertToObject } from 'typescript';
 
 interface DisciplineProps {
     id?: string;
@@ -39,6 +40,8 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
     const [studentsId, setStudentsId] = useState<STInterface[]>([]);
 
     const [studentsSelect, setStudentsSelect] = useState<STInterface[]>([]);
+
+    const [discipline, setDiscipline] = useState<DisciplineInterface>();
 
     const [requisition, setRequisition] = useState('Registrar');
 
@@ -69,8 +72,10 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
         setPersonName(
             typeof value === 'string' ? value.split(',') : value,
         );
+
+        console.log(personName)
     };
-    
+
     function handleGetDiscipline(idDiscipline: string){
         ApiService
             .get(`/disciplines/${idDiscipline}`)
@@ -78,20 +83,20 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
                 setId(response.data.id);
                 setTitle(response.data.title);
                 setDescription(response.data.description);
-                setTeacherId(response.data.teacher_id); 
-                
-                const sa = response.data.students
+                setTeacherId(response.data.teacher_id);
 
-                for(let nameStudent in sa){
-                    console.log(nameStudent)
+                let listPersons = []
+
+                for( let a = 0; a < response.data.students.length; a++){
+                    listPersons.push(response.data.students[a].name)
                 }
-                
+                setPersonName(listPersons)
             })
             .catch((error) => {
                 console.log(`Falha ao tentar recuperar a disciplina!\n Erro: ${error}`);
             });
     }
-    
+
     function handleGetAllTeachers(){
         ApiService
             .get("/teachers")
@@ -114,7 +119,7 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
             });
     }
 
-    function handleSubmit(){
+    function handlePostSubmit(){
         ApiService
             .post("/disciplines", {
                 "title": title,
@@ -125,12 +130,33 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
             .catch((error) => {
                 console.log(`Ocorreu uma falha ao ${requisition} o professor\n ${error}`);
             });
-            navigate(`/`);
+    }
+
+    function handlePutSubmit(){
+        ApiService
+            .put(`/disciplines/${id}`, {
+                "title": title,
+                "description": description,
+                "teacher_id": teacherId,
+                "student_id": personName
+            })
+            .catch((error) => {
+                console.log(`Ocorreu uma falha ao ${requisition} o professor\n ${error}`);
+            });
     }
 
     function handleIsValid(){
+        handlePutSubmit();
         if( title != "" && description != "" && teacherId != ""){
-            handleSubmit();
+            if(props.id){
+                alert("aaaaaaaaaaaaaaaaaaaaa")
+                handlePutSubmit();
+                
+            }
+            else{
+                handlePostSubmit();
+            }
+            navigate(`/`);
         }
     }
 
@@ -142,8 +168,6 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
             setRequisition("Alterar")
             props.id ? handleGetDiscipline(props.id) : console.log(`Falha ao tentar recuperar o id da disciplina!\n`) 
         }
-
-        console.log(studentsSelect)
     }, []);
 
     return (
@@ -160,11 +184,7 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
                         <CardHeader title={requisition + " " +"Disciplina"} sx={{ color: 'white' }} />
                         <Divider sx={{ borderColor: '#48539b' }} />
                         <CardContent>
-                            <Box component="form" noValidate autoComplete="off"
-                                sx={{
-                                    '& .MuiTextField-root': { m: 1, width: '25ch' },
-                                }}
-                            >
+                            <Box component="form" noValidate autoComplete="off" sx={{ '& .MuiTextField-root': { m: 1, width: '25ch' }}} >
                                 <Grid container spacing={2}>
                                     <Grid item xs={12}>
                                         <TextFieldCustom
@@ -226,6 +246,7 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
                                                 multiple
                                                 value={personName}
                                                 onChange={handleChangeStudents}
+                                                defaultValue={personName}
                                                 input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
                                                 renderValue={(selected) => (
                                                     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
@@ -268,6 +289,7 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
                                         <Grid item>
                                             <Button
                                                 sx={{
+                                                    mt: { xs: 2, md: 0 }, 
                                                     backgroundColor: '#7063C0',
                                                     '&:hover': {
                                                         background: '#6153bb' ,

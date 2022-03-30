@@ -53,7 +53,7 @@ export const FormStudent: React.FC<StudentProps> = (props) => {
             });
     }
 
-    function handleSubmit(){
+    function handlePostSubmit(){
         ApiService
             .post("/students", {
                 "name": name,
@@ -64,12 +64,30 @@ export const FormStudent: React.FC<StudentProps> = (props) => {
             .catch((error) => {
                 console.log(`Falha ao tentar ${requisition} o aluno!\n Erro: ${error}`);
             });
-            navigate(`/students/`);
+    }
+
+    function handlePutSubmit(){
+        ApiService
+            .put(`/students/${id}`, {
+                "name": name,
+                "email": email,
+                "cpf": cpf,
+                "phone": phone,            
+            })
+            .catch((error) => {
+                console.log(`Falha ao tentar ${requisition} o aluno!\n Erro: ${error}`);
+            });
     }
 
     function handleIsValid(){
         if( name != "" && email != "" && cpf != "" && phone != "" ){
-            handleSubmit();
+            if(props.id){
+                handlePutSubmit();
+            }
+            else{
+                handlePostSubmit();
+            }
+            navigate(`/students/`);
         }
     }
 
@@ -100,7 +118,7 @@ export const FormStudent: React.FC<StudentProps> = (props) => {
 
                                     <Grid item xs={12}>
                                         <TextField
-                                            fullWidth
+                                            
                                             required
                                             id="id_name"
                                             label="Nome"
@@ -115,7 +133,7 @@ export const FormStudent: React.FC<StudentProps> = (props) => {
 
                                     <Grid item xs={12}>
                                         <TextField
-                                            fullWidth
+                                            
                                             required
                                             id="id_email"
                                             label="E-mail"
@@ -130,7 +148,7 @@ export const FormStudent: React.FC<StudentProps> = (props) => {
 
                                     <Grid item xs={12}>
                                         <TextField
-                                            fullWidth
+                                            
                                             required
                                             id="id_cpf"
                                             label="Cpf"
@@ -145,7 +163,7 @@ export const FormStudent: React.FC<StudentProps> = (props) => {
 
                                     <Grid item xs={12}>
                                         <TextField
-                                            fullWidth
+                                            
                                             required
                                             id="id_phone"
                                             label="Celular"
@@ -161,6 +179,7 @@ export const FormStudent: React.FC<StudentProps> = (props) => {
                                         <Grid item>
                                             <ButtonCustom variant="contained"
                                                 sx={{
+                                                    mt: { xs: 2, md: 0 }, 
                                                     backgroundColor: '#7063C0',
                                                     '&:hover': {
                                                         background: '#6153bb' ,
@@ -178,6 +197,7 @@ export const FormStudent: React.FC<StudentProps> = (props) => {
                                         <Grid item>
                                             <ButtonCustom variant="contained"
                                                 sx={{
+                                                    mt: { xs: 2, md: 0 }, 
                                                     backgroundColor: '#7063C0',
                                                     '&:hover': {
                                                         background: '#6153bb' ,

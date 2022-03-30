@@ -42,8 +42,6 @@ export class CreateDisciplineService{
 
         discipline.students = listStudents
 
-        console.log(student_id)
-
         await repo.save(discipline);
 
         return discipline;

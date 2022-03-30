@@ -53,7 +53,7 @@ export const FormTeacher: React.FC<TeacherProps> = (props) => {
             });
     }
 
-    function handleSubmit(){
+    function handlePostSubmit(){
         ApiService
             .post("/teachers", {
                 "name": name,
@@ -64,12 +64,30 @@ export const FormTeacher: React.FC<TeacherProps> = (props) => {
             .catch((error) => {
                 console.log(`Falha ao tentar ${requisition} o professor!\n Erro: ${error}`);
             });
-            navigate(`/teachers/`);
+    }
+
+    function handlePutSubmit(){
+        ApiService
+            .put(`/teachers/${id}`, {
+                "name": name,
+                "email": email,
+                "cpf": cpf,
+                "phone": phone,  
+            })
+            .catch((error) => {
+                console.log(`Ocorreu uma falha ao ${requisition} o professor\n ${error}`);
+            });
     }
 
     function handleIsValid(){
         if( name != "" && email != "" && cpf != "" && phone != "" ){
-            handleSubmit();
+            if(props.id){
+                handlePutSubmit();
+            }
+            else{
+                handlePostSubmit();
+            }
+            navigate(`/teachers/`);
         }
     }
 
@@ -100,7 +118,7 @@ export const FormTeacher: React.FC<TeacherProps> = (props) => {
 
                                     <Grid item xs={12}>
                                         <TextField
-                                            fullWidth
+                                            
                                             required
                                             id="id_name"
                                             label="Nome"
@@ -115,7 +133,7 @@ export const FormTeacher: React.FC<TeacherProps> = (props) => {
 
                                     <Grid item xs={12}>
                                         <TextField
-                                            fullWidth
+                                            
                                             required
                                             id="id_email"
                                             label="E-mail"
@@ -130,7 +148,7 @@ export const FormTeacher: React.FC<TeacherProps> = (props) => {
 
                                     <Grid item xs={12}>
                                         <TextField
-                                            fullWidth
+                                            
                                             required
                                             id="id_cpf"
                                             label="Cpf"
@@ -145,7 +163,7 @@ export const FormTeacher: React.FC<TeacherProps> = (props) => {
 
                                     <Grid item xs={12}>
                                         <TextField
-                                            fullWidth
+                                            
                                             required
                                             id="id_phone"
                                             label="Celular"
@@ -157,10 +175,12 @@ export const FormTeacher: React.FC<TeacherProps> = (props) => {
                                             helperText={phone === '' ? 'Preencha o Celular' : ''}
                                         />
                                     </Grid>
+
                                     <Grid container justifyContent={'center'} spacing={3}>
                                         <Grid item>
                                             <ButtonCustom variant="contained"
                                                 sx={{
+                                                    mt: { xs: 2, md: 0 }, 
                                                     backgroundColor: '#7063C0',
                                                     '&:hover': {
                                                         background: '#6153bb' ,
@@ -178,6 +198,7 @@ export const FormTeacher: React.FC<TeacherProps> = (props) => {
                                         <Grid item>
                                             <ButtonCustom variant="contained"
                                                 sx={{
+                                                    mt: { xs: 2, md: 0 }, 
                                                     backgroundColor: '#7063C0',
                                                     '&:hover': {
                                                         background: '#6153bb' ,

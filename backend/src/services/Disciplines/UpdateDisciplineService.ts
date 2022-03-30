@@ -32,8 +32,8 @@ export class UpdateDisciplineService{
         const listStudents: Student[] = [];
 
         if(student_id){
-            for (let id of student_id) {
-                listStudents.push(await repoStudent.findOne(id));
+            for (let name of student_id) {
+                listStudents.push(await repoStudent.findOne({where:{name: name}}));
             }
         }
 
