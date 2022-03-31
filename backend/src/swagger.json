@@ -1,0 +1,542 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "school",
+        "description": "",
+        "contact": {},
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:4000",
+            "description": "Teste API"
+        }
+    ],
+    "paths": {
+        "/students":{
+            "post":{
+                "summary": "Cadastrar Aluno",
+                "description": "Rota responsável por criar um novo registro de Aluno.",
+                "tags": ["Students"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Student"
+                            },
+                            "examples":{
+                                "student":{
+                                    "value":{
+                                        "name": "Felipe Luis Gomes",
+                                        "email": "flg99@gmail.com",
+                                        "cpf": "756.432.098-43",
+                                        "phone": "(35) 9 9852-8953"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Aluno já registrado!"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Student"
+                                }
+                            }
+                        }
+                    }
+                }
+
+            },
+            "get": {
+                "summary": "Buscar Alunos",
+                "description": "Rota responsável por buscar todos os Alunos.",
+                "tags": ["Students"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "$ref": "#/components/schemas/Student"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "/students/{id}":{
+            "get": {
+                "summary": "Pesquisar Aluno",
+                "description": "Rota responsável por pesquisar um Aluno específico.",
+                "tags": ["Students"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do aluno para realizar a pesquisa.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Student"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put":{
+                "summary": "Editar Aluno",
+                "description": "Rota responsável por editar um Aluno específico.",
+                "tags": ["Students"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do aluno para realizar a edição.",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Student"
+                            },
+                            "examples":{
+                                "student":{
+                                    "value":{
+                                        "name": "Felipe Luis Gomes Reis",
+                                        "email": "flg1999@gmail.com",
+                                        "cpf": "856.422.098-43",
+                                        "phone": "(35) 9 9852-8953"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Student"
+                                }
+                            }
+                        }
+                    }
+                }
+
+            },
+            "delete":{
+                "summary": "Deletar Aluno",
+                "description": "Rota responsável por deletar um Aluno específico.",
+                "tags": ["Students"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do aluno para realizar a remoção.",
+                        "required": true
+                    }
+                ],
+                "responses":{
+                    "200": {
+                        "description": "Aluno deletado com sucesso!"
+                    }
+                }
+            }
+        },
+
+        "/teachers":{
+            "post":{
+                "summary": "Cadastrar Professor",
+                "description": "Rota responsável por criar um novo registro de Professor.",
+                "tags": ["Teachers"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Teacher"
+                            },
+                            "examples":{
+                                "teacher":{
+                                    "value":{
+                                        "name": "Jamilton Damasceno",
+                                        "email": "jd99@gmail.com",
+                                        "cpf": "168.769.876-90",
+                                        "phone": "(35) 9 9254-3561"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Professor já registrado!"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Teacher"
+                                }
+                            }
+                        }
+                    }
+                }
+
+            },
+            "get": {
+                "summary": "Buscar Professores",
+                "description": "Rota responsável por buscar todos os Professores.",
+                "tags": ["Teachers"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "$ref": "#/components/schemas/Teacher"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "/teachers/{id}":{
+            "get": {
+                "summary": "Pesquisar Professor",
+                "description": "Rota responsável por pesquisar um Professor específico.",
+                "tags": ["Teachers"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do professor para realizar a pesquisa.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Teacher"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put":{
+                "summary": "Editar Professor",
+                "description": "Rota responsável por editar um Professor específico.",
+                "tags": ["Teachers"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do professor para realizar a edição.",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Teacher"
+                            },
+                            "examples":{
+                                "teacher":{
+                                    "value":{
+                                        "name": "Jamilton Damasceno Prado",
+                                        "email": "jd9934@gmail.com",
+                                        "cpf": "970.507.876-90",
+                                        "phone": "(35) 9 9254-3561"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Teacher"
+                                }
+                            }
+                        }
+                    }
+                }
+
+            },
+            "delete":{
+                "summary": "Deletar Professor",
+                "description": "Rota responsável por deletar um Professor específico.",
+                "tags": ["Teachers"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID do professor para realizar a remoção.",
+                        "required": true
+                    }
+                ],
+                "responses":{
+                    "200": {
+                        "description": "Professor deletado com sucesso!"
+                    }
+                }
+            }
+        },
+
+        "/disciplines":{
+            "post":{
+                "summary": "Cadastrar Turma",
+                "description": "Rota responsável por criar um novo registro de Turma.",
+                "tags": ["Disciplines"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Discipline"
+                            },
+                            "examples":{
+                                "discipline":{
+                                    "value":{
+                                        "title": "Turma de Engenharia de Software III",
+                                        "description": "Engenheiro de software. Atua no desenvolvimento de programas, manutenção e adequação a diferentes processos produtivos para garantir maior desempenho.",
+                                        "teacher_id": "ccdbed42-81f6-42a7-b914-718c7acb5441",
+                                        "student_id": [
+                                            "3b5ff47e-f493-45b2-b9d1-661b1de6d2b1",
+                                            "ad6cc272-c898-4352-8898-426aecc11f59"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Turma já registrado!"
+                    },
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Discipline"
+                                }
+                            }
+                        }
+                    }
+                }
+
+            },
+            "get": {
+                "summary": "Buscar Turma",
+                "description": "Rota responsável por buscar todos as Turmas.",
+                "tags": ["Disciplines"],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "$ref": "#/components/schemas/Discipline"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+
+        "/disciplines/{id}":{
+            "get": {
+                "summary": "Pesquisar Turma",
+                "description": "Rota responsável por pesquisar uma Turma específica.",
+                "tags": ["Disciplines"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da turma para realizar a pesquisa.",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Discipline"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put":{
+                "summary": "Editar Turma",
+                "description": "Rota responsável por editar uma Turma específica.",
+                "tags": ["Disciplines"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da turma para realizar a edição.",
+                        "required": true
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Discipline"
+                            },
+                            "examples":{
+                                "discipline":{
+                                        "title": "Turma de Engenharia de Software II",
+                                        "description": "Engenheiro de software. Atua no desenvolvimento de programas, manutenção e adequação a diferentes processos produtivos para garantir maior desempenho.",
+                                        "teacher_id": "<id do professor>",
+                                        "student_id": [
+                                            "<id do aluno>"
+                                        ]
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Discipline"
+                                }
+                            }
+                        }
+                    }
+                }
+
+            },
+            "delete":{
+                "summary": "Deletar Turma",
+                "description": "Rota responsável por deletar uma Turma específica.",
+                "tags": ["Disciplines"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID da turma para realizar a remoção.",
+                        "required": true
+                    }
+                ],
+                "responses":{
+                    "200": {
+                        "description": "Turma deletada com sucesso!"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Student": {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "string" },
+                    "cpf": { "type": "string" },
+                    "email": { "type": "string" },
+                    "phone": { "type": "string" },
+                    "name": { "type": "string" },
+                    "create_at": { "type": "string" }
+                }
+            },
+
+            "Teacher": {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "string" },
+                    "cpf": { "type": "string" },
+                    "email": { "type": "string" },
+                    "phone": { "type": "string" },
+                    "name": { "type": "string" },
+                    "create_at": { "type": "string" }
+                }
+            },
+
+            "Discipline": {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "string" },
+                    "create_at": { "type": "string" },
+                    "title": { "type": "string" },
+                    "description": { "type": "string" },
+                    "teacher_id": { "type": "string" },
+                    "student_id": { "type": "array" },
+                    "teacher": { 
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/components/schemas/Teacher"
+                        } 
+                    },   
+                    "students": { 
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/components/schemas/Teacher"
+                        }    
+                    }
+                }
+            }
+        },
+        "securitSchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+}
