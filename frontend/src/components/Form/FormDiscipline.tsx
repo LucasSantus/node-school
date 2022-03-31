@@ -205,7 +205,7 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
                                             required
                                             disabled={disabled}
                                             multiline
-                                            maxRows={6}
+                                            minRows={6}
                                             id="id_description"
                                             label="Descrição"
                                             type="text"
