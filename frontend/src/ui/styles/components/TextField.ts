@@ -13,13 +13,15 @@ export const TextFieldCustom = styled(TextField)({
     },
 
     '& label.Mui-disabled':{
-        // color: 'red !important',
-        // backgroundColor: 'yellow'
+        color: 'white !important',
     },
 
-    '& input.Mui-disabled':{
-        // color: 'red !important',
-        // backgroundColor: 'yellow'
+    '& .css-1sqnrkk-MuiInputBase-input-MuiOutlinedInput-input.Mui-disabled':{
+        "-webkit-text-fill-color": 'white !important',
+    },
+
+    ' .MuiOutlinedInput-input':{
+        "-webkit-text-fill-color": 'white !important',
     },
 
     //  INPUT
@@ -32,6 +34,11 @@ export const TextFieldCustom = styled(TextField)({
         '&.Mui-focused': {
             color: '#8179B5',
         },
+        '&.Mui-disabled': {
+            "-webkit-text-fill-color": 'white !important',
+            borderColor: '#48539b', 
+        },
+        
     },
 
     '& .MuiOutlinedInput-root': {

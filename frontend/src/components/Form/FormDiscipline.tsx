@@ -14,6 +14,7 @@ import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
 import { ButtonCustom } from '../../ui/styles/components/Button';
+import { ChipCustom } from '../../ui/styles/components/Chip';
 
 interface DisciplineProps {
     id?: string;
@@ -251,7 +252,7 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
                                                 renderValue={(selected) => (
                                                     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                                                         {selected.map((value) => (
-                                                            <Chip key={value} label={value} />
+                                                            <ChipCustom key={value} label={value} />
                                                         ))}
                                                     </Box>
                                                 )}
