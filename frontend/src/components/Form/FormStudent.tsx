@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 
-import { Box, Container, Grid, Button, Card, CardHeader, CardContent, TextField, Divider } from '@mui/material';
+import { Box, Container, Grid, Card, CardHeader, CardContent, Divider } from '@mui/material';
 
 import { ApiService } from '../../services/ApiService';
 import { useNavigate } from 'react-router-dom';
 import { ButtonCustom } from '../../ui/styles/components/Button';
+import { TextFieldCustom } from '../../ui/styles/components/TextField';
 
 interface StudentProps {
     id?: string;
@@ -19,6 +20,7 @@ export const FormStudent: React.FC<StudentProps> = (props) => {
     const [phone, setPhone] = useState('');
 
     const [requisition, setRequisition] = useState('Registrar');
+    const [disabled, setDisabled] = useState(false);
 
     let navigate = useNavigate();
     
@@ -96,6 +98,11 @@ export const FormStudent: React.FC<StudentProps> = (props) => {
             setRequisition("Alterar")
             props.id ? handleGetStudent(props.id) : console.log("Falha ao tentar recuperar o id do aluno!\n") 
         }
+        else if(props.type === 'read'){
+            setDisabled(true)
+            setRequisition("Visualizar")
+            props.id ? handleGetStudent(props.id) : console.log("Falha ao tentar recuperar o id do aluno!\n") 
+        }
     }, []);
 
     return (
@@ -115,11 +122,10 @@ export const FormStudent: React.FC<StudentProps> = (props) => {
                         <CardContent>
                             <Box component="form" sx={{ '& .MuiTextField-root': { m: 1, width: '25ch' }}} noValidate autoComplete="off" >
                                 <Grid container spacing={2}>
-
                                     <Grid item xs={12}>
-                                        <TextField
-                                            
+                                        <TextFieldCustom                                            
                                             required
+                                            disabled={disabled}
                                             id="id_name"
                                             label="Nome"
                                             type="text"
@@ -132,9 +138,9 @@ export const FormStudent: React.FC<StudentProps> = (props) => {
                                     </Grid>
 
                                     <Grid item xs={12}>
-                                        <TextField
-                                            
+                                        <TextFieldCustom                                            
                                             required
+                                            disabled={disabled}
                                             id="id_email"
                                             label="E-mail"
                                             type="email"
@@ -147,9 +153,9 @@ export const FormStudent: React.FC<StudentProps> = (props) => {
                                     </Grid>
 
                                     <Grid item xs={12}>
-                                        <TextField
-                                            
+                                        <TextFieldCustom                                            
                                             required
+                                            disabled={disabled}
                                             id="id_cpf"
                                             label="Cpf"
                                             type="text"
@@ -162,9 +168,9 @@ export const FormStudent: React.FC<StudentProps> = (props) => {
                                     </Grid>
 
                                     <Grid item xs={12}>
-                                        <TextField
-                                            
+                                        <TextFieldCustom                                            
                                             required
+                                            disabled={disabled}
                                             id="id_phone"
                                             label="Celular"
                                             type="phone"
@@ -175,43 +181,46 @@ export const FormStudent: React.FC<StudentProps> = (props) => {
                                             helperText={phone === '' ? 'Preencha o Celular' : ''}
                                         />
                                     </Grid>
-                                    <Grid container justifyContent={'center'} spacing={3}>
-                                        <Grid item>
-                                            <ButtonCustom variant="contained"
-                                                sx={{
-                                                    mt: { xs: 2, md: 0 }, 
-                                                    backgroundColor: '#7063C0',
-                                                    '&:hover': {
-                                                        background: '#6153bb' ,
-                                                        opacity: 0.5
-                                                    },
-                                                }}
-                                                onClick={() => {
-                                                    navigate(`/students`);
-                                                }}
-                                            >
-                                                Voltar
-                                            </ButtonCustom>
-                                        </Grid>
-                                    
-                                        <Grid item>
-                                            <ButtonCustom variant="contained"
-                                                sx={{
-                                                    mt: { xs: 2, md: 0 }, 
-                                                    backgroundColor: '#7063C0',
-                                                    '&:hover': {
-                                                        background: '#6153bb' ,
-                                                        opacity: 0.5
-                                                    },
-                                                }}
-                                                onClick={() => {
-                                                    handleIsValid()
-                                                }}
-                                            >
-                                                {requisition}
-                                            </ButtonCustom>
-                                        </Grid>
-                                    </Grid>            
+
+                                    {!disabled ? (
+                                        <Grid container justifyContent={'center'} spacing={3}>
+                                            <Grid item>
+                                                <ButtonCustom variant="contained"
+                                                    sx={{
+                                                        mt: { xs: 2, md: 0 }, 
+                                                        backgroundColor: '#7063C0',
+                                                        '&:hover': {
+                                                            background: '#6153bb' ,
+                                                            opacity: 0.5
+                                                        },
+                                                    }}
+                                                    onClick={() => {
+                                                        navigate(`/students`);
+                                                    }}
+                                                >
+                                                    Voltar
+                                                </ButtonCustom>
+                                            </Grid>
+                                        
+                                            <Grid item>
+                                                <ButtonCustom variant="contained"
+                                                    sx={{
+                                                        mt: { xs: 2, md: 0 }, 
+                                                        backgroundColor: '#7063C0',
+                                                        '&:hover': {
+                                                            background: '#6153bb' ,
+                                                            opacity: 0.5
+                                                        },
+                                                    }}
+                                                    onClick={() => {
+                                                        handleIsValid()
+                                                    }}
+                                                >
+                                                    {requisition}
+                                                </ButtonCustom>
+                                            </Grid>
+                                        </Grid> 
+                                    ) : ( <> </> )}
                                 </Grid>
                             </Box>
                         </CardContent>

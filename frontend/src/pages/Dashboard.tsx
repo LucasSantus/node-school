@@ -111,7 +111,7 @@ export default function Dashboard(){
                                             <CardContent sx={{ height: '100%' }} > 
                                                 <LinkTitleCardCustom variant="h6" color="text.primary" underline="hover"
                                                     onClick={() => {
-                                                        navigate(`/disciplines/${item.id}`);
+                                                        navigate(`/disciplines/read/${item.id}`);
                                                     }}
                                                 >
                                                     {item.title}

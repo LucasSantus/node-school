@@ -20,6 +20,7 @@ export const FormTeacher: React.FC<TeacherProps> = (props) => {
     const [phone, setPhone] = useState('');
 
     const [requisition, setRequisition] = useState('Registrar');
+    const [disabled, setDisabled] = useState(false);
 
     let navigate = useNavigate();
     
@@ -97,6 +98,11 @@ export const FormTeacher: React.FC<TeacherProps> = (props) => {
             setRequisition("Alterar")
             props.id ? handleGetTeacher(props.id) : console.log("Falha ao tentar recuperar o id do professor!\n") 
         }
+        else if(props.type === 'read'){
+            setDisabled(true)
+            setRequisition("Visualizar")
+            props.id ? handleGetTeacher(props.id) : console.log("Falha ao tentar recuperar o id do professor!\n") 
+        }
     }, []);
 
     return (
@@ -120,6 +126,7 @@ export const FormTeacher: React.FC<TeacherProps> = (props) => {
                                     <Grid item xs={12}>
                                         <TextFieldCustom
                                             required
+                                            disabled={disabled}
                                             id="id_name"
                                             label="Nome"
                                             type="text"
@@ -134,6 +141,7 @@ export const FormTeacher: React.FC<TeacherProps> = (props) => {
                                     <Grid item xs={12}>
                                         <TextFieldCustom
                                             required
+                                            disabled={disabled}
                                             id="id_email"
                                             label="E-mail"
                                             type="email"
@@ -148,6 +156,7 @@ export const FormTeacher: React.FC<TeacherProps> = (props) => {
                                     <Grid item xs={12}>
                                         <TextFieldCustom
                                             required
+                                            disabled={disabled}
                                             id="id_cpf"
                                             label="Cpf"
                                             type="text"
@@ -162,6 +171,7 @@ export const FormTeacher: React.FC<TeacherProps> = (props) => {
                                     <Grid item xs={12}>
                                         <TextFieldCustom
                                             required
+                                            disabled={disabled}
                                             id="id_phone"
                                             label="Celular"
                                             type="phone"
@@ -173,43 +183,45 @@ export const FormTeacher: React.FC<TeacherProps> = (props) => {
                                         />
                                     </Grid>
 
-                                    <Grid container justifyContent={'center'} spacing={3}>
-                                        <Grid item>
-                                            <ButtonCustom variant="contained"
-                                                sx={{
-                                                    mt: { xs: 2, md: 0 }, 
-                                                    backgroundColor: '#7063C0',
-                                                    '&:hover': {
-                                                        background: '#6153bb' ,
-                                                        opacity: 0.5
-                                                    },
-                                                }}
-                                                onClick={() => {
-                                                    navigate(`/teachers`);
-                                                }}
-                                            >
-                                                Voltar
-                                            </ButtonCustom>
-                                        </Grid>
-                                    
-                                        <Grid item>
-                                            <ButtonCustom variant="contained"
-                                                sx={{
-                                                    mt: { xs: 2, md: 0 }, 
-                                                    backgroundColor: '#7063C0',
-                                                    '&:hover': {
-                                                        background: '#6153bb' ,
-                                                        opacity: 0.5
-                                                    },
-                                                }}
-                                                onClick={() => {
-                                                    handleIsValid()
-                                                }}
-                                            >
-                                                {requisition}
-                                            </ButtonCustom>
-                                        </Grid>
-                                    </Grid>            
+                                    {!disabled ? (
+                                        <Grid container justifyContent={'center'} spacing={3}>
+                                            <Grid item>
+                                                <ButtonCustom variant="contained"
+                                                    sx={{
+                                                        mt: { xs: 2, md: 0 }, 
+                                                        backgroundColor: '#7063C0',
+                                                        '&:hover': {
+                                                            background: '#6153bb' ,
+                                                            opacity: 0.5
+                                                        },
+                                                    }}
+                                                    onClick={() => {
+                                                        navigate(`/teachers`);
+                                                    }}
+                                                >
+                                                    Voltar
+                                                </ButtonCustom>
+                                            </Grid>
+                                        
+                                            <Grid item>
+                                                <ButtonCustom variant="contained"
+                                                    sx={{
+                                                        mt: { xs: 2, md: 0 }, 
+                                                        backgroundColor: '#7063C0',
+                                                        '&:hover': {
+                                                            background: '#6153bb' ,
+                                                            opacity: 0.5
+                                                        },
+                                                    }}
+                                                    onClick={() => {
+                                                        handleIsValid()
+                                                    }}
+                                                >
+                                                    {requisition}
+                                                </ButtonCustom>
+                                            </Grid>
+                                        </Grid>         
+                                    ) : ( <> </> )}
                                 </Grid>
                             </Box>
                         </CardContent>

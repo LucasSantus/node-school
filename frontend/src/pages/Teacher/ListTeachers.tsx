@@ -107,7 +107,7 @@ export default function ListTeachers(){
                                             <CardContent sx={{ height: '100%' }} > 
                                                 <LinkTitleCardCustom variant="h6" color="text.primary" underline="hover"
                                                     onClick={() => {
-                                                        navigate(`/teachers/${item.id}`);
+                                                        navigate(`/teachers/read/${item.id}`);
                                                     }}
                                                 >
                                                     {item.name}

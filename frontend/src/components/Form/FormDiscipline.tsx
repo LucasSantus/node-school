@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 
-import { Box, Container, Grid, Button, Card, CardHeader, CardContent, Divider, MenuItem } from '@mui/material';
+import { Box, Container, Grid, Card, CardHeader, CardContent, Divider, MenuItem } from '@mui/material';
 
 import { ApiService } from '../../services/ApiService';
 import { useNavigate } from 'react-router-dom';
 import { TextFieldCustom } from '../../ui/styles/components/TextField';
-import { DisciplineInterface, STInterface } from '../../types/types';
+import { STInterface } from '../../types/types';
 
 import * as React from 'react';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -13,7 +13,7 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import Chip from '@mui/material/Chip';
-import { convertToObject } from 'typescript';
+import { ButtonCustom } from '../../ui/styles/components/Button';
 
 interface DisciplineProps {
     id?: string;
@@ -37,13 +37,9 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
     const [description, setDescription] = useState('');
 
     const [teacherId, setTeacherId] = useState('');
-    const [studentsId, setStudentsId] = useState<STInterface[]>([]);
-
-    const [studentsSelect, setStudentsSelect] = useState<STInterface[]>([]);
-
-    const [discipline, setDiscipline] = useState<DisciplineInterface>();
 
     const [requisition, setRequisition] = useState('Registrar');
+    const [disabled, setDisabled] = useState(false);
 
     let navigate = useNavigate();
 
@@ -149,9 +145,7 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
         handlePutSubmit();
         if( title != "" && description != "" && teacherId != ""){
             if(props.id){
-                alert("aaaaaaaaaaaaaaaaaaaaa")
                 handlePutSubmit();
-                
             }
             else{
                 handlePostSubmit();
@@ -167,6 +161,11 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
         if(props.type === 'modify'){
             setRequisition("Alterar")
             props.id ? handleGetDiscipline(props.id) : console.log(`Falha ao tentar recuperar o id da disciplina!\n`) 
+        }
+        else if(props.type === 'read'){
+            setDisabled(true)
+            setRequisition("Visualizar")
+            props.id ? handleGetDiscipline(props.id) : console.log("Falha ao tentar recuperar o id do aluno!\n") 
         }
     }, []);
 
@@ -188,8 +187,8 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
                                 <Grid container spacing={2}>
                                     <Grid item xs={12}>
                                         <TextFieldCustom
-                                            fullWidth
                                             required
+                                            disabled={disabled}
                                             id="id_title"
                                             label="Título"
                                             type="text"
@@ -203,8 +202,8 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
 
                                     <Grid item xs={12}>
                                         <TextFieldCustom
-                                            fullWidth
                                             required
+                                            disabled={disabled}
                                             multiline
                                             maxRows={6}
                                             id="id_description"
@@ -220,7 +219,7 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
 
                                     <Grid item xs={12}>
                                         <TextFieldCustom
-                                            fullWidth
+                                            disabled={disabled}
                                             id="id_teacher"
                                             select
                                             label="Professor"
@@ -238,16 +237,17 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
                                     </Grid>
 
                                     <Grid item xs={12}>
-                                        <FormControl sx={{ m: 1, width: '100%' }}>
-                                            <InputLabel id="demo-multiple-chip-label">Chip</InputLabel>
+                                        <FormControl sx={{ m: 1, width: '390px' }}>
+                                            <InputLabel id="demo-multiple-chip-label">Alunos</InputLabel>
                                             <Select
+                                                disabled={disabled}
                                                 labelId="demo-multiple-chip-label"
                                                 id="demo-multiple-chip"
                                                 multiple
                                                 value={personName}
                                                 onChange={handleChangeStudents}
                                                 defaultValue={personName}
-                                                input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+                                                input={<OutlinedInput id="select-multiple-chip" label="Alunos" />}
                                                 renderValue={(selected) => (
                                                     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                                                         {selected.map((value) => (
@@ -266,45 +266,47 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
                                         </FormControl>
                                     </Grid>
 
-                                    <Grid container justifyContent={'center'} spacing={3}>
-                                        <Grid item>
-                                            <Button
-                                                sx={{ 
-                                                    mt: { xs: 2, md: 0 }, 
-                                                    backgroundColor: '#7063C0',
-                                                    '&:hover': {
-                                                        background: '#6153bb' ,
-                                                        opacity: 0.5
-                                                    },
-                                                }}
-                                                variant="contained"
-                                                onClick={() => {
-                                                    navigate(`/`);
-                                                }}
-                                            >
-                                                Voltar
-                                            </Button>
+                                    {!disabled ? (
+                                        <Grid container justifyContent={'center'} spacing={3}>
+                                            <Grid item>
+                                                <ButtonCustom
+                                                    sx={{ 
+                                                        mt: { xs: 2, md: 0 }, 
+                                                        backgroundColor: '#7063C0',
+                                                        '&:hover': {
+                                                            background: '#6153bb' ,
+                                                            opacity: 0.5
+                                                        },
+                                                    }}
+                                                    variant="contained"
+                                                    onClick={() => {
+                                                        navigate(`/`);
+                                                    }}
+                                                >
+                                                    Voltar
+                                                </ButtonCustom>
+                                            </Grid>
+                                        
+                                            <Grid item>
+                                                <ButtonCustom
+                                                    sx={{
+                                                        mt: { xs: 2, md: 0 }, 
+                                                        backgroundColor: '#7063C0',
+                                                        '&:hover': {
+                                                            background: '#6153bb' ,
+                                                            opacity: 0.5
+                                                        },
+                                                    }}
+                                                    variant="contained"
+                                                    onClick={() => {
+                                                        handleIsValid()
+                                                    }}
+                                                >
+                                                    {requisition}
+                                                </ButtonCustom>
+                                            </Grid>
                                         </Grid>
-                                    
-                                        <Grid item>
-                                            <Button
-                                                sx={{
-                                                    mt: { xs: 2, md: 0 }, 
-                                                    backgroundColor: '#7063C0',
-                                                    '&:hover': {
-                                                        background: '#6153bb' ,
-                                                        opacity: 0.5
-                                                    },
-                                                }}
-                                                variant="contained"
-                                                onClick={() => {
-                                                    handleIsValid()
-                                                }}
-                                            >
-                                                {requisition}
-                                            </Button>
-                                        </Grid>
-                                    </Grid>            
+                                    ) : ( <> </> )}          
                                 </Grid>
                             </Box>
                         </CardContent>
