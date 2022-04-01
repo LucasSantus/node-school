@@ -339,10 +339,10 @@
                                     "value":{
                                         "title": "Turma de Engenharia de Software III",
                                         "description": "Engenheiro de software. Atua no desenvolvimento de programas, manutenção e adequação a diferentes processos produtivos para garantir maior desempenho.",
-                                        "teacher_id": "ccdbed42-81f6-42a7-b914-718c7acb5441",
+                                        "teacher_id": "<ID_PROFESSOR>",
                                         "student_id": [
-                                            "3b5ff47e-f493-45b2-b9d1-661b1de6d2b1",
-                                            "ad6cc272-c898-4352-8898-426aecc11f59"
+                                            "<ID_ALUNO>",
+                                            "<ID_ALUNO>"
                                         ]
                                     }
                                 }
@@ -435,12 +435,15 @@
                             },
                             "examples":{
                                 "discipline":{
+                                    "value":{
                                         "title": "Turma de Engenharia de Software II",
-                                        "description": "Engenheiro de software. Atua no desenvolvimento de programas, manutenção e adequação a diferentes processos produtivos para garantir maior desempenho.",
-                                        "teacher_id": "<id do professor>",
+                                        "description": "Engenheiro de software. Atua no desenvolvimento de programas, manutenção e adequação de processos.",
+                                        "teacher_id": "<ID_PROFESSOR>",
                                         "student_id": [
-                                            "<id do aluno>"
+                                            "<ID_ALUNO>",
+                                            "<ID_ALUNO>"
                                         ]
+                                    }
                                 }
                             }
                         }
