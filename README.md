@@ -83,9 +83,9 @@ As seguintes ferramentas foram usadas na construção do projeto:
 <h4 id="clonando">Clonando o Repositório</h4>
 
 ```
-git clone git@github.com:LucasSantus/school.git
+git clone git@github.com:LucasSantus/node-school.git
 
-cd school
+cd node-school
 ```
 
 <h4 id="rodando">Rodando o Projeto</h4>
