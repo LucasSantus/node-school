@@ -29,7 +29,7 @@ _"Criar um sistema básico para o controle de Turmas."_
 <h3 id="status">:heavy_exclamation_mark: Status do Projeto</h3>
 
 <h4 align="center"> 
-	🚧 Sistema Web em construção... 🚧
+	:heavy_check_mark: Sistema Web finalizado... :heavy_check_mark:
 </h4>
 
 --------------------------------------------------------------------------------------
