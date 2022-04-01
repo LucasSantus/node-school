@@ -1,6 +1,6 @@
 <h3>:computer: Rodando o Frontend
-  
-> **Observação:** Para que o projeto funcione corretamente, siga todos os passos disponibilizados abaixo.
+
+<h6>Para que o projeto funcione corretamente, siga todos os passos disponibilizados abaixo.</h6>
 
 <h4>Instalando Dependencias</h4>
 
@@ -22,4 +22,4 @@ docker-compose up
 
 **Acessando o Projeto**
 
-http://localhost:3000/
+http://localhost:3000
