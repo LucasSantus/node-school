@@ -12,28 +12,13 @@ ou
 yarn install
 ```
 
-<h4>Rodando o Projeto</h4>
-
-> **Rodando o Projeto**
+**Rodando o Projeto**
 
 ```
 docker-compose up
 ```
 
-> **Rodando o Projeto em Segundo Plano**
 
-```
-docker-compose up -d
-```
-
-> **Parando o Projeto**
-
-```
-docker-compose stop
-```
-
-<h4>Acessando o Projeto</h4>
-
-> **Acessar a Documentação da API( Swagger )**
+**Acessando a Documentação da API( Swagger )**
 
 http://localhost:4000/docs/
