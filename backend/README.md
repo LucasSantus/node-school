@@ -8,6 +8,21 @@
 npm install
 ```
 
+**Configurar .env Local**
+<h6>Para que o projeto funcione adequadamente, é necessário criar um arquivo ".env" na raiz do backend, e adicionar os mesmos atributos impostos no arquivo  ".env.example"</h6>
+
+```
+DB_NAME=school_db
+DB_USERNAME=root
+DB_PASSWORD=root
+DB_PORT=5432
+DB_HOST=localhost
+API_PORT=4000
+DATABASE_URL=postgres://root:root@localhost:5433/school
+ENTITIES=src/entities/**/*.ts
+MIGRATIONS=src/database/migrations/**/*.ts
+```
+
 **Rodando o Projeto**
 
 ```
