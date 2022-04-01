@@ -1,13 +1,12 @@
 version: '3.5'
 services:
-  server:
-    container_name: school_server
+  api:
     build: .
     ports:
       - 4000:4000
     volumes:
-      - .:/home/server
-      - /home/server/node_modules
+      - .:/home/api
+      - /home/api/node_modules
     environment:
       DB_HOST: database
       DB_PORT: 5432

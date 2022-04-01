@@ -55,7 +55,7 @@ export default function Dashboard(){
 
     useEffect(() => {
         handleGetAllDisciplines();
-    }, []);
+    }, [disciplines]);
 
     return (
         <>
@@ -88,85 +88,83 @@ export default function Dashboard(){
 
                     {disciplines.length > 0 ? (
                         disciplines.map((item) => (
-                            <>
-                                <Grid item xs={12} md={4}>
-                                    <Paper elevation={3}
+                            <Grid item xs={12} md={4} key={item.id}>
+                                <Paper elevation={3}
+                                    sx={{
+                                        height: '100%',
+                                        display: 'flex',
+                                        flexDirection: 'column'
+                                    }}
+                                >
+                                    <Card
                                         sx={{
+                                            backgroundColor: "#151c46",
+                                            border: '1px solid',
+                                            borderColor: '#48539b',
                                             height: '100%',
                                             display: 'flex',
-                                            flexDirection: 'column'
+                                            flexDirection: 'column',
+                                            justifyContent: 'space-between'
                                         }}
                                     >
-                                        <Card
-                                            sx={{
-                                                backgroundColor: "#151c46",
-                                                border: '1px solid',
-                                                borderColor: '#48539b',
-                                                height: '100%',
-                                                display: 'flex',
-                                                flexDirection: 'column',
-                                                justifyContent: 'space-between'
-                                            }}
-                                        >
-                                            <CardContent sx={{ height: '100%' }} > 
-                                                <LinkTitleCardCustom variant="h6" color="text.primary" underline="hover"
-                                                    onClick={() => {
-                                                        navigate(`/disciplines/read/${item.id}`);
-                                                    }}
-                                                >
-                                                    {item.title}
-                                                </LinkTitleCardCustom>
-                                                <Tooltip title={item.description} >
-                                                    <Typography sx={{ pb: 2, color: '#9395A2' }}>
-                                                        {handleLimitText(item.description)}
-                                                    </Typography>
+                                        <CardContent sx={{ height: '100%' }} > 
+                                            <LinkTitleCardCustom variant="h6" color="text.primary" underline="hover"
+                                                onClick={() => {
+                                                    navigate(`/disciplines/read/${item.id}`);
+                                                }}
+                                            >
+                                                {item.title}
+                                            </LinkTitleCardCustom>
+                                            <Tooltip title={item.description} >
+                                                <Typography sx={{ pb: 2, color: '#9395A2' }}>
+                                                    {handleLimitText(item.description)}
+                                                </Typography>
+                                            </Tooltip>
+                                        </CardContent>
+                                            <Divider sx={{ backgroundColor: '#48539b' }} />
+
+                                            <CardActions sx={{ alignItems: 'center', justifyContent: 'flex-end' }} >
+
+                                            <Typography display="flex" alignItems="center" variant="subtitle2"></Typography>
+
+                                            <AvatarGroup>
+                                            <Tooltip arrow title="Editar Disciplina">
+                                                    <IconButton color="inherit" size="small"
+                                                        sx={{
+                                                            '&:hover': {
+                                                                background: '#070C27',
+                                                                opacity: 0.5
+                                                            },
+                                                            color: 'green'
+                                                        }}
+                                                        onClick={() => {
+                                                            item.id ? handleModify(item.id) : console.log("Falha ao tentar chamar função de modificar disciplina!")
+                                                        }}
+                                                    >
+                                                        <EditTwoToneIcon fontSize="small" />
+                                                    </IconButton>
                                                 </Tooltip>
-                                            </CardContent>
-                                                <Divider sx={{ backgroundColor: '#48539b' }} />
-
-                                                <CardActions sx={{ alignItems: 'center', justifyContent: 'flex-end' }} >
-
-                                                <Typography display="flex" alignItems="center" variant="subtitle2"></Typography>
-
-                                                <AvatarGroup>
-                                                <Tooltip arrow title="Editar Disciplina">
-                                                        <IconButton color="inherit" size="small"
-                                                            sx={{
-                                                                '&:hover': {
-                                                                    background: '#070C27',
-                                                                    opacity: 0.5
-                                                                },
-                                                                color: 'green'
-                                                            }}
-                                                            onClick={() => {
-                                                                item.id ? handleModify(item.id) : console.log("Falha ao tentar chamar função de modificar disciplina!")
-                                                            }}
-                                                        >
-                                                            <EditTwoToneIcon fontSize="small" />
-                                                        </IconButton>
-                                                    </Tooltip>
-                                                    <Tooltip arrow title="Deletar Disciplina">
-                                                        <IconButton color="inherit" size="small"
-                                                            sx={{
-                                                                '&:hover': { 
-                                                                    background: '#070C27',
-                                                                    opacity: 0.5
-                                                                },
-                                                                color: 'red'
-                                                            }}
-                                                            onClick={() => {
-                                                                item.id ? handleDelete(item.id) : console.log("Falha ao tentar chamar função de deletar disciplina!")
-                                                            }}
-                                                        >
-                                                            <DeleteTwoToneIcon fontSize="small" />
-                                                        </IconButton>
-                                                    </Tooltip>
-                                                </AvatarGroup>
-                                            </CardActions>
-                                        </Card>
-                                    </Paper>
-                                </Grid>
-                            </>
+                                                <Tooltip arrow title="Deletar Disciplina">
+                                                    <IconButton color="inherit" size="small"
+                                                        sx={{
+                                                            '&:hover': { 
+                                                                background: '#070C27',
+                                                                opacity: 0.5
+                                                            },
+                                                            color: 'red'
+                                                        }}
+                                                        onClick={() => {
+                                                            item.id ? handleDelete(item.id) : console.log("Falha ao tentar chamar função de deletar disciplina!")
+                                                        }}
+                                                    >
+                                                        <DeleteTwoToneIcon fontSize="small" />
+                                                    </IconButton>
+                                                </Tooltip>
+                                            </AvatarGroup>
+                                        </CardActions>
+                                    </Card>
+                                </Paper>
+                            </Grid>
                         ))) : (
                             <Box
                                 sx={{
