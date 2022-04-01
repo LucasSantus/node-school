@@ -2,10 +2,11 @@ version: '3.5'
 
 services:
   node:
+    container_name: school_frontend
     image: node:12
     ports:
       - '3000:3000'
     volumes:
-      - ./:/srv/react-docker
-    working_dir: /srv/react-docker
+      - ./:/srv/frontend
+    working_dir: /srv/frontend
     command: 'npm start'

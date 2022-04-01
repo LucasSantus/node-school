@@ -12,7 +12,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import Chip from '@mui/material/Chip';
+
 import { ButtonCustom } from '../../ui/styles/components/Button';
 import { ChipCustom } from '../../ui/styles/components/Chip';
 
@@ -144,7 +144,7 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
 
     function handleIsValid(){
         handlePutSubmit();
-        if( title != "" && description != "" && teacherId != ""){
+        if( title !== "" && description !== "" && teacherId !== ""){
             if(props.id){
                 handlePutSubmit();
             }
