@@ -20,9 +20,7 @@ _"Criar um sistema básico para o controle de Turmas."_
 * [Funcionalidades](#funcionalidades)
 * [Instalação do Projeto](#instalando)
     * [Clonando Repositório](#clonando)
-    * [Windows](#rodando-windows)
-    * [Linux](#rodando-linux)
-* [Comandos](#comandos)
+    * [Rodando o Projeto](#rodando)
 * [Autor](#autor)
 * [Licença](#license)
 
@@ -52,16 +50,32 @@ As seguintes ferramentas foram usadas na construção do projeto:
 
 - [NodeJS](https://nodejs.org/en/)
 - [React](https://pt-br.reactjs.org/)
-- [Material Ui](https://mui.com/pt/getting-started/installation/)
+- [Material Ui](https://mui.com/pt/)
 
 --------------------------------------------------------------------------------------
 
 <h3 id="funcionalidades">:sparkles: Funcionalidades</h3>
 
-<h4 align="center"> 
-	🚧 Funcionalidades serão construídas em breve... 🚧
-</h4>
+- [X] Possui Documentação de API(Swagger)
 
+- [X] Possibilita a criação de alunos.
+- [X] Possibilita a recuperação de todos os alunos.
+- [X] Possibilita a recuperação de aluno p/ ID.
+- [X] Possibilita a edição de alunos.
+- [X] Possibilita a remoção de alunos.
+
+- [X] Possibilita a criação de professores.
+- [X] Possibilita a recuperação de todos os professores.
+- [X] Possibilita a recuperação de professor p/ ID.
+- [X] Possibilita a edição de professores.
+- [X] Possibilita a remoção de professores.
+
+- [X] Possibilita a criação de turmas.
+- [X] Possibilita a recuperação de todos os turmas.
+- [X] Possibilita a recuperação de turma p/ ID.
+- [X] Possibilita a edição de turmas.
+- [X] Possibilita a remoção de turmas.
+	
 --------------------------------------------------------------------------------------
 
 <h3 id="instalando">:computer: Instalando o Projeto</h3>
@@ -76,10 +90,15 @@ cd school
 
 <h4 id="rodando">Rodando o Projeto</h4>
 
-> **Observação:** Para o projeto funcionar corretamente, acesse abaixo os links com a descrição.
+> **Observação:** Para que o projeto funcione corretamente, acesse abaixo os links contendo a descrição do "Backend" e "Frontend".
 
-![Back-End](backend/README.md)
-![Front-End](frontend/README.md)
+<li>
+	<a href="backend/README.md">Back-end</a>
+</li>
+
+<li>
+	<a href="frontend/README.md">Front-end</a>
+</li>
 
 --------------------------------------------------------------------------------------
 
