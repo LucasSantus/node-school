@@ -8,12 +8,6 @@
 npm install
 ```
 
-**Construindo o Projeto**
-
-```
-docker-compose up --build
-```
-
 **Rodando o Projeto**
 
 ```
