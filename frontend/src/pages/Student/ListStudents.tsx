@@ -51,7 +51,7 @@ export default function ListStudents(){
 
     useEffect(() => {
         handleGetAllStudents();
-    }, []);
+    }, [students]);
 
     return (
         <>
@@ -84,80 +84,78 @@ export default function ListStudents(){
 
                     {students.length > 0 ? (
                         students.map((item) => (
-                            <>
-                                <Grid item xs={12} md={4}>
-                                    <Paper elevation={3}
+                            <Grid item xs={12} md={4} key={item.id}>
+                                <Paper elevation={3}
+                                    sx={{
+                                        height: '100%',
+                                        display: 'flex',
+                                        flexDirection: 'column'
+                                    }}
+                                >
+                                    <Card
                                         sx={{
+                                            backgroundColor: "#151c46",
+                                            border: '1px solid',
+                                            borderColor: '#48539b',
                                             height: '100%',
                                             display: 'flex',
-                                            flexDirection: 'column'
+                                            flexDirection: 'column',
+                                            justifyContent: 'space-between'
                                         }}
                                     >
-                                        <Card
-                                            sx={{
-                                                backgroundColor: "#151c46",
-                                                border: '1px solid',
-                                                borderColor: '#48539b',
-                                                height: '100%',
-                                                display: 'flex',
-                                                flexDirection: 'column',
-                                                justifyContent: 'space-between'
-                                            }}
-                                        >
-                                            <CardContent sx={{ height: '100%' }} > 
-                                                <LinkTitleCardCustom variant="h6" color="text.primary" underline="hover"
-                                                    onClick={() => {
-                                                        navigate(`/students/read/${item.id}`);
-                                                    }}
-                                                >
-                                                    {item.name}
-                                                </LinkTitleCardCustom>
-                                            </CardContent>
-                                                <Divider sx={{ backgroundColor: '#48539b' }} />
+                                        <CardContent sx={{ height: '100%' }} > 
+                                            <LinkTitleCardCustom variant="h6" color="text.primary" underline="hover"
+                                                onClick={() => {
+                                                    navigate(`/students/read/${item.id}`);
+                                                }}
+                                            >
+                                                {item.name}
+                                            </LinkTitleCardCustom>
+                                        </CardContent>
+                                            <Divider sx={{ backgroundColor: '#48539b' }} />
 
-                                                <CardActions sx={{ alignItems: 'center', justifyContent: 'flex-end' }} >
+                                            <CardActions sx={{ alignItems: 'center', justifyContent: 'flex-end' }} >
 
-                                                <Typography display="flex" alignItems="center" variant="subtitle2" ></Typography>
+                                            <Typography display="flex" alignItems="center" variant="subtitle2" ></Typography>
 
-                                                <AvatarGroup>
-                                                    <Tooltip arrow title="Editar Aluno">
-                                                        <IconButton color="inherit" size="small"
-                                                            sx={{
-                                                                '&:hover': {
-                                                                    background: '#070C27',
-                                                                    opacity: 0.5
-                                                                },
-                                                                color: 'green'
-                                                            }}
-                                                            onClick={() => {
-                                                                item.id ? handleModify(item.id) : console.log("Falha ao tentar chamar função de modificar aluno!")
-                                                            }}
-                                                        >
-                                                            <EditTwoToneIcon fontSize="small" />
-                                                        </IconButton>
-                                                    </Tooltip>
-                                                    <Tooltip arrow title="Deletar Aluno">
-                                                        <IconButton color="inherit" size="small"
-                                                            sx={{
-                                                                '&:hover': { 
-                                                                    background: '#070C27',
-                                                                    opacity: 0.5
-                                                                },
-                                                                color: 'red'
-                                                            }}
-                                                            onClick={() => {
-                                                                item.id ? handleDelete(item.id) : console.log("Falha ao tentar chamar função de deletar aluno!")
-                                                            }}
-                                                        >
-                                                            <DeleteTwoToneIcon fontSize="small" />
-                                                        </IconButton>
-                                                    </Tooltip>
-                                                </AvatarGroup>
-                                            </CardActions>
-                                        </Card>
-                                    </Paper>
-                                </Grid>
-                            </>
+                                            <AvatarGroup>
+                                                <Tooltip arrow title="Editar Aluno">
+                                                    <IconButton color="inherit" size="small"
+                                                        sx={{
+                                                            '&:hover': {
+                                                                background: '#070C27',
+                                                                opacity: 0.5
+                                                            },
+                                                            color: 'green'
+                                                        }}
+                                                        onClick={() => {
+                                                            item.id ? handleModify(item.id) : console.log("Falha ao tentar chamar função de modificar aluno!")
+                                                        }}
+                                                    >
+                                                        <EditTwoToneIcon fontSize="small" />
+                                                    </IconButton>
+                                                </Tooltip>
+                                                <Tooltip arrow title="Deletar Aluno">
+                                                    <IconButton color="inherit" size="small"
+                                                        sx={{
+                                                            '&:hover': { 
+                                                                background: '#070C27',
+                                                                opacity: 0.5
+                                                            },
+                                                            color: 'red'
+                                                        }}
+                                                        onClick={() => {
+                                                            item.id ? handleDelete(item.id) : console.log("Falha ao tentar chamar função de deletar aluno!")
+                                                        }}
+                                                    >
+                                                        <DeleteTwoToneIcon fontSize="small" />
+                                                    </IconButton>
+                                                </Tooltip>
+                                            </AvatarGroup>
+                                        </CardActions>
+                                    </Card>
+                                </Paper>
+                            </Grid>
                         ))) : (
                             <Box
                                 sx={{

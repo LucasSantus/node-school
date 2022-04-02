@@ -33,7 +33,16 @@ export class UpdateDisciplineService{
 
         if(student_id){
             for (let student of student_id) {
-                listStudents.push(await repoStudent.findOne(student));
+                let objStudent: Student
+                try{
+                    objStudent = await repoStudent.findOne({
+                        where: {name: student}
+                    })
+                }
+                catch(error){
+                    objStudent = await repoStudent.findOne(student) 
+                }
+                listStudents.push(objStudent);
             }
         }
 

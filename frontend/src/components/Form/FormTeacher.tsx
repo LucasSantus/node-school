@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Box, Container, Grid, Card, CardHeader, CardContent, TextField, Divider } from '@mui/material';
+import { Box, Container, Grid, Card, CardHeader, CardContent, Divider } from '@mui/material';
 
 import { ApiService } from '../../services/ApiService';
 import { useNavigate } from 'react-router-dom';
@@ -82,7 +82,7 @@ export const FormTeacher: React.FC<TeacherProps> = (props) => {
     }
 
     function handleIsValid(){
-        if( name != "" && email != "" && cpf != "" && phone != "" ){
+        if( name !== "" && email !== "" && cpf !== "" && phone !== "" ){
             if(props.id){
                 handlePutSubmit();
             }

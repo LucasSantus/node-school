@@ -145,7 +145,7 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
 
     function handleIsValid(){
         handlePutSubmit();
-        if( title != "" && description != "" && teacherId != ""){
+        if( title !== "" && description !== "" && teacherId !== ""){
             if(props.id){
                 handlePutSubmit();
             }

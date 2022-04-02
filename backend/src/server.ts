@@ -11,8 +11,6 @@ const PORT = process.env.API_PORT;
 
 import swaggerDocs from "./swagger.json";
 
-import swaggerExample from "./a.json";
-
 // create app express
 const app = express();
 
@@ -28,8 +26,6 @@ app.use(cors(options));
 app.use(express.json());
 
 app.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-
-// app.use("/example-docs", swaggerUi.serve, swaggerUi.setup(swaggerExample));
 
 app.use(routes); 
 

@@ -1,4 +1,3 @@
-import { useMediaQuery } from '@mui/material';
 import Button from '@mui/material/Button/Button';
 import { styled } from '@mui/material/styles';
 
