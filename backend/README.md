@@ -23,6 +23,12 @@ ENTITIES=src/entities/**/*.ts
 MIGRATIONS=src/database/migrations/**/*.ts
 ```
 
+**Construir o Projeto**
+
+```
+docker-compose up --build
+```
+
 **Rodando o Projeto**
 
 ```
