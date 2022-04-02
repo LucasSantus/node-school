@@ -12,9 +12,10 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
-import Chip from '@mui/material/Chip';
 import { ButtonCustom } from '../../ui/styles/components/Button';
 import { ChipCustom } from '../../ui/styles/components/Chip';
+
+import './../../ui/Chip.css'
 
 interface DisciplineProps {
     id?: string;
@@ -231,7 +232,7 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
                                         >
                                             {teachers.map((item) => (
                                                 <MenuItem key={item.id} value={item.id}>
-                                                    {item.name} {item.cpf}
+                                                    {item.name}
                                                 </MenuItem>
                                             ))}
                                         </TextFieldCustom>
@@ -252,7 +253,7 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
                                                 renderValue={(selected) => (
                                                     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                                                         {selected.map((value) => (
-                                                            <ChipCustom key={value} label={value} />
+                                                            <ChipCustom className="chip" key={value} label={value} />
                                                         ))}
                                                     </Box>
                                                 )}
