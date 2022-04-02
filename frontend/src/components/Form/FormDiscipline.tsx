@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import { Box, Container, Grid, Card, CardHeader, CardContent, Divider, MenuItem } from '@mui/material';
+import { Box, Container, Grid, Card, CardHeader, CardContent, Divider, MenuItem, Chip } from '@mui/material';
 
 import { ApiService } from '../../services/ApiService';
 import { useNavigate } from 'react-router-dom';
@@ -13,7 +13,6 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { ButtonCustom } from '../../ui/styles/components/Button';
-import { ChipCustom } from '../../ui/styles/components/Chip';
 
 import './../../ui/Chip.css'
 
@@ -249,11 +248,13 @@ export const FormDiscipline: React.FC<DisciplineProps> = (props) => {
                                                 value={personName}
                                                 onChange={handleChangeStudents}
                                                 defaultValue={personName}
-                                                input={<OutlinedInput id="select-multiple-chip" label="Alunos" />}
+                                                input={
+                                                    <OutlinedInput  id="select-multiple-chip" className='label' label="Alunos" />
+                                                }
                                                 renderValue={(selected) => (
                                                     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                                                         {selected.map((value) => (
-                                                            <ChipCustom className="chip" key={value} label={value} />
+                                                            <Chip key={value} label={value} />
                                                         ))}
                                                     </Box>
                                                 )}

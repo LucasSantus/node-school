@@ -82,7 +82,7 @@ export const FormStudent: React.FC<StudentProps> = (props) => {
     }
 
     function handleIsValid(){
-        if( name != "" && email != "" && cpf != "" && phone != "" ){
+        if( name !== "" && email !== "" && cpf !== "" && phone !== "" ){
             if(props.id){
                 handlePutSubmit();
             }
